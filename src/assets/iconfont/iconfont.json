@@ -1,0 +1,107 @@
+{
+  "id": "4648545",
+  "name": "no name",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6345965",
+      "name": "ellipsis",
+      "font_class": "ellipsis",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "5288601",
+      "name": "向下箭头",
+      "font_class": "xiangxiajiantou",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "2286510",
+      "name": "对话",
+      "font_class": "duihua",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "10469989",
+      "name": "不喜欢",
+      "font_class": "dislike",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "77697",
+      "name": "点赞",
+      "font_class": "dianzan",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "4494615",
+      "name": "上传文件",
+      "font_class": "shangchuanwenjian",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "5315178",
+      "name": "57-向上箭头",
+      "font_class": "-xiangshangjiantou",
+      "unicode": "e6cb",
+      "unicode_decimal": 59083
+    },
+    {
+      "icon_id": "5387866",
+      "name": "加号_o",
+      "font_class": "jiahao_o",
+      "unicode": "eb78",
+      "unicode_decimal": 60280
+    },
+    {
+      "icon_id": "6260305",
+      "name": "收藏夹",
+      "font_class": "shoucangjia",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "37129157",
+      "name": "AI写作",
+      "font_class": "AIxiezuo",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
+      "icon_id": "41029900",
+      "name": "AI搜索",
+      "font_class": "AIsousuo",
+      "unicode": "e6cf",
+      "unicode_decimal": 59087
+    },
+    {
+      "icon_id": "19837877",
+      "name": "AI头像",
+      "font_class": "bianzu2",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "12686830",
+      "name": "箭头",
+      "font_class": "left-arrow",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "20402210",
+      "name": "折叠",
+      "font_class": "zhedie",
+      "unicode": "e6f5",
+      "unicode_decimal": 59125
+    }
+  ]
+}
