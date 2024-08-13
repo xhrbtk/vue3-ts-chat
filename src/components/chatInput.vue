@@ -2,14 +2,22 @@
     <div class="input-container">
         <div class="input-main">
             <!-- 上传文件box -->
-            <div class="uploade-file-box"></div>
+            <uploadBox
+                v-if="fileList.length > 0"
+                :fileList="fileList"
+                @deleteFile="deleteFile"
+            ></uploadBox>
             <div class="input-wrap">
                 <div class="upload-box">
                     <el-upload
-                        show-file-list="false"
+                        v-model:file-list="fileList"
                         class="upload-demo"
                         action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
                         multiple
+                        :on-success="handleSuccess"
+                        :limit="50"
+                        :on-exceed="handleExceed"
+                        @on-progress="handleProgress"
                     >
                         <el-tooltip placement="top">
                             <template #content>
@@ -48,7 +56,63 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import uploadBox from '@/components/uploadBox.vue';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import type { UploadProps, UploadUserFile } from 'element-plus';
+
 const message = ref<string>('');
+
+const fileList = ref<UploadUserFile[]>([
+    {
+        name: '1.svg',
+        url: 'https://element-plus.org/images/element-plus-logo.svg',
+    },
+    {
+        name: '2.svg',
+        url: 'https://element-plus.org/images/element-plus-logo.svg',
+    },
+    {
+        name: '3.svg',
+        url: 'https://element-plus.org/images/element-plus-logo.svg',
+    },
+    {
+        name: '4.svg',
+        url: 'https://element-plus.org/images/element-plus-logo.svg',
+    },
+    {
+        name: 'element-plus-logo.svg',
+        url: 'https://element-plus.org/images/element-plus-logo.svg',
+    },
+    {
+        name: 'element-plus-logo2.svg',
+        url: 'https://element-plus.org/images/element-plus-logo.svg',
+    },
+]);
+
+const handleSuccess: UploadProps['onSuccess'] = (uploadFile) => {
+    console.log(uploadFile);
+};
+const handleProgress: UploadProps['onProgress'] = (event, file, fileList) => {
+    console.log(event, file, fileList);
+};
+
+const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
+    ElMessage.warning(
+        `The limit is 50, you selected ${
+            files.length
+        } files this time, add up to ${
+            files.length + uploadFiles.length
+        } totally`,
+    );
+};
+
+// 控制上传的文件关闭按钮的显示和隐藏
+
+const showCloseIconIndex = ref<number>(-1);
+
+const deleteFile = (file: UploadUserFile, index: number): void => {
+    fileList.value.splice(index, 1);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -63,8 +127,11 @@ const message = ref<string>('');
         border: 0.5px solid rgba(0, 0, 0, 0.12);
         position: relative;
         padding: 5px 15px;
+        display: flex;
+        flex-direction: column;
 
         .input-wrap {
+            flex: 1;
             display: flex;
             font-size: 11px;
             display: flex;
@@ -88,7 +155,6 @@ const message = ref<string>('');
                 display: flex;
 
                 .input-textarea {
-                    padding-top: 5px;
                     display: flex;
                     justify-content: center;
                 }

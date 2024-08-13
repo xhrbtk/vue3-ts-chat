@@ -26,6 +26,7 @@ declare module 'vue' {
     LeftAside: typeof import('./src/components/leftAside.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UploadBox: typeof import('./src/components/uploadBox.vue')['default']
     UsePinia: typeof import('./src/components/usePinia.vue')['default']
   }
 }
