@@ -2,8 +2,8 @@
     <div class="chat-list" ref="chatContainer">
         <div class="content">
             <chat-code />
-            <chat-text />
-            <chat-chart :options="chartOptions"></chat-chart>
+            <!-- <chat-text /> -->
+            <!-- <chat-chart :options="chartOptions"></chat-chart> -->
         </div>
     </div>
 </template>
@@ -47,9 +47,11 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 .chat-list {
+    position: relative;
     flex: 1;
     border: 1px solid red;
     overflow: hidden;
+    display: flex;
     .content {
         height: 100%;
         overflow-y: scroll;

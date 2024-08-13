@@ -19,21 +19,26 @@
                 </div>
                 <!-- 新建对话 -->
                 <div
-                    class="flex items-center thread-create box-border rounded-[12px] ml-[16px] mt-[12px] mb-[6px] h-[40px] mr-[10px]"
+                    class="flex items-center thread-create box-border rounded-[12px] ml-[16px] mt-[12px] mb-[6px] h-[30px] mr-[10px]"
+                    @click="useJumpTo('/chat')"
                 >
                     <span
-                        class="iconfont icon-jiahao_o font-semibold text-[16px]"
+                        class="iconfont icon-jiahao_o font-semibold text-[14px]"
                     ></span>
-                    <div class="text-[12px] font-semibold ml-[6px]">新对话</div>
+                    <div class="text-[11px] font-semibold ml-[6px]">新对话</div>
                 </div>
                 <div class="w-full mb-[8px] flex flex-col gap-[2px]">
-                    <div class="section ml-[16px] mr-[10px]">
-                        <span class="text-[16px] iconfont icon-AIsousuo"></span>
-                        <div class="text-[12px] ml-[6px]">AI搜索</div>
-                    </div>
-                    <div class="section ml-[16px] mr-[10px]">
-                        <span class="text-[16px] iconfont icon-AIxiezuo"></span>
-                        <div class="text-[12px] ml-[6px]">帮我写作</div>
+                    <div
+                        class="section ml-[16px] mr-[10px]"
+                        v-for="(item, index) in menuList"
+                        :key="index"
+                        @click="useJumpTo(item.path)"
+                    >
+                        <span
+                            class="text-[14px] iconfont"
+                            :class="item.icon"
+                        ></span>
+                        <div class="text-[11px] ml-[6px]">{{ item.name }}</div>
                     </div>
 
                     <div
@@ -42,18 +47,18 @@
                     <!-- 对话列表 -->
                     <div class="chat-wrap">
                         <div
+                            @click="toggleThreadList"
                             class="section ml-[16px] mr-[10px] flex chat-title"
                         >
                             <div class="flex items-center">
                                 <span
-                                    class="text-[16px] iconfont icon-duihua"
+                                    class="text-[14px] iconfont icon-duihua"
                                 ></span>
-                                <div class="text-[12px] ml-[6px]">最近对话</div>
+                                <div class="text-[11px] ml-[6px]">最近对话</div>
                             </div>
                             <span
-                                @click="toggleThreadList"
                                 :class="{ 'icon-arrow-right': !showThradList }"
-                                class="icon-arrow cursor-pointer text-[14px] iconfont icon-xiangxiajiantou ml-[10px]"
+                                class="icon-arrow cursor-pointer text-[12px] iconfont icon-xiangxiajiantou ml-[10px]"
                             ></span>
                         </div>
                         <div class="thread-list-wrap">
@@ -70,31 +75,69 @@
                                     v-for="(item, index) in threadList"
                                     :key="item.id"
                                     @click="activeThread(index)"
+                                    @mouseenter="activeAction(index)"
+                                    @mouseleave="activeAction(-1)"
                                 >
                                     <div
-                                        class="text-[12px] block overflow-hidden whitespace-nowrap"
+                                        class="text-[11px] block overflow-hidden whitespace-nowrap"
                                         href=""
                                     >
                                         <div>
                                             {{ item.name }}
                                         </div>
                                     </div>
-                                    <span
-                                        class="text-[12px] ml-[6px] iconfont icon-ellipsis"
-                                    ></span>
+
+                                    <el-popover :width="100" trigger="click">
+                                        <template #reference>
+                                            <span
+                                                v-show="
+                                                    activeEllipsisIndex ==
+                                                        index ||
+                                                    activeIndex == index
+                                                "
+                                                class="text-[11px] ml-[6px] iconfont icon-ellipsis"
+                                            ></span>
+                                        </template>
+                                        <template #default>
+                                            <ul class="menu-dropdown">
+                                                <li
+                                                    v-for="(
+                                                        item, index
+                                                    ) in dialogMenuArr"
+                                                    :key="index"
+                                                    class="cursor-pointer rounded-sm text-xs min-w-[80px] px-1 py-[2px] pr-[5px] flex items-center hover:bg-gray-200"
+                                                    :class="
+                                                        index == 3
+                                                            ? 'text-red-500'
+                                                            : 'text-black'
+                                                    "
+                                                    @click.stop="
+                                                        handleDialogMenu(item)
+                                                    "
+                                                >
+                                                    <span
+                                                        class="iconfont text-[12px]"
+                                                        :class="item.icon"
+                                                    ></span>
+                                                    <span
+                                                        class="text-[12px] ml-[6px]"
+                                                        >{{ item.name }}</span
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </template>
+                                    </el-popover>
                                 </li>
                             </ul>
                             <div
-                                class="h-[0.5px] bg-color-line px-4 mb-[8px] ml-[16px] mr-[10px] mt-[20px]"
+                                class="h-[0.5px] bg-color-line px-4 mb-[8px] ml-[16px] mr-[10px]"
                             ></div>
                         </div>
                     </div>
                     <!-- 收藏 -->
                     <div class="section ml-[16px] mr-[10px]">
-                        <span
-                            class="text-[16px] iconfont icon-shoucangjia"
-                        ></span>
-                        <div class="text-[12px] ml-[6px]">收藏</div>
+                        <span class="text-[14px] iconfont icon-shoucang"></span>
+                        <div class="text-[11px] ml-[6px]">收藏</div>
                     </div>
                 </div>
             </div>
@@ -104,7 +147,34 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import useJumpTo from '@/hooks/useRouter';
+
+import { Menu, dialogMenuType } from '@/types/common';
+import { menuArr, dialogMenu } from '@/config/common';
+const menuList = ref<Menu[]>(menuArr);
+const dialogMenuArr = ref<dialogMenuType[]>(dialogMenu);
+
+interface Thread {
+    name: string;
+    id: number;
+}
+const threadList = ref<Thread[]>([
+    {
+        name: '今天北京天气几天1',
+        id: 1,
+    },
+    // {
+    //     name: '今天北京天气几天2',
+    //     id: 2,
+    // },
+]);
+
 const show = ref<boolean>(true);
+const activeEllipsisIndex = ref<number>(-1);
+const activeAction = (index: number): void => {
+    activeEllipsisIndex.value = index;
+    console.log('activeEllipsisIndex', activeEllipsisIndex);
+};
 
 const toggleCollapse = (): void => {
     show.value = !show.value;
@@ -118,120 +188,33 @@ const activeIndex = ref<number>(-1);
 const activeThread = (index: number): void => {
     activeIndex.value = index;
 };
-interface Thread {
-    name: string;
-    id: number;
-}
-const threadList = ref<Thread[]>([
-    {
-        name: '今天北京天气几天1',
-        id: 1,
-    },
-    {
-        name: '今天北京天气几天2',
-        id: 2,
-    },
-    {
-        name: '今天北京天气几天3',
-        id: 3,
-    },
-    {
-        name: '今天北京天气几天1',
-        id: 1,
-    },
-    {
-        name: '今天北京天气几天2',
-        id: 2,
-    },
-    {
-        name: '今天北京天气几天3',
-        id: 3,
-    },
-    {
-        name: '今天北京天气几天1',
-        id: 1,
-    },
-    {
-        name: '今天北京天气几天2',
-        id: 2,
-    },
-    {
-        name: '今天北京天气几天3',
-        id: 3,
-    },
-    {
-        name: '今天北京天气几天1',
-        id: 1,
-    },
-    {
-        name: '今天北京天气几天2',
-        id: 2,
-    },
-    {
-        name: '今天北京天气几天3',
-        id: 3,
-    },
-    {
-        name: '今天北京天气几天1',
-        id: 1,
-    },
-    {
-        name: '今天北京天气几天2',
-        id: 2,
-    },
-    {
-        name: '今天北京天气几天3',
-        id: 3,
-    },
-    {
-        name: '今天北京天气几天1',
-        id: 1,
-    },
-    {
-        name: '今天北京天气几天2',
-        id: 2,
-    },
-    {
-        name: '今天北京天气几天3',
-        id: 3,
-    },
-    {
-        name: '今天北京天气几天1',
-        id: 1,
-    },
-    {
-        name: '今天北京天气几天2',
-        id: 2,
-    },
-    {
-        name: '今天北京天气几天3',
-        id: 3,
-    },
-    {
-        name: '今天北京天气几天1',
-        id: 1,
-    },
-    {
-        name: '今天北京天气几天2',
-        id: 2,
-    },
-    {
-        name: '今天北京天气几天3',
-        id: 3,
-    },
-    {
-        name: '今天北京天气几天1',
-        id: 1,
-    },
-    {
-        name: '今天北京天气几天2',
-        id: 2,
-    },
-    {
-        name: '今天北京天气几天3',
-        id: 3,
-    },
-]);
+// 弹框操作
+const handleDialogMenu = (item: dialogMenuType): void => {
+    switch (item.action) {
+        case 'share':
+            handleShare();
+        case 'collect':
+            handleCollect();
+        case 'edit':
+            handleEdit();
+        case 'delete':
+            handleDelete();
+        default:
+            break;
+    }
+};
+const handleShare = (): void => {
+    console.log('share');
+};
+const handleCollect = (): void => {
+    console.log('collect');
+};
+const handleEdit = (): void => {
+    console.log('edit');
+};
+const handleDelete = (): void => {
+    console.log('delete');
+};
 </script>
 
 <style lang="scss" scoped>
@@ -282,7 +265,7 @@ const threadList = ref<Thread[]>([
             align-items: center;
             border-radius: 12px;
             color: rgba(0, 0, 0, 0.85);
-            padding: 8px;
+            padding: 4px 8px;
             cursor: pointer;
             &:hover {
                 background: rgba(0, 87, 255, 0.08);
@@ -309,7 +292,9 @@ const threadList = ref<Thread[]>([
             }
             .thread-list {
                 transition: height 0.8s;
-                height: 300px;
+
+                height: 200px;
+
                 overflow: auto;
                 padding-left: 10px;
 
@@ -322,6 +307,7 @@ const threadList = ref<Thread[]>([
                     padding-bottom: 4px;
                     padding-right: 10px;
                     cursor: pointer;
+                    position: relative;
 
                     &:hover {
                         background-color: white;
@@ -334,6 +320,31 @@ const threadList = ref<Thread[]>([
             }
             .thread-list-hide {
                 height: 0;
+            }
+        }
+    }
+
+    .menu-dropdown {
+        position: absolute;
+        right: 0;
+        top: 25px;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 12px;
+        .menu-item {
+            border-radius: 4px;
+            font-size: 11px;
+            min-width: 80px;
+            padding: 2px 5px 2px 2px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            &:hover {
+                background-color: #f2f2f2;
+            }
+            &.delete {
+                color: red;
             }
         }
     }

@@ -33,9 +33,9 @@ defineComponent({
     .content {
         flex: 1;
         position: relative;
-        border: 1px solid red;
         display: flex;
         flex-direction: column;
+        padding-bottom: 20px;
     }
     .right {
         flex-shrink: 0;

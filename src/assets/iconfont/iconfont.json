@@ -6,6 +6,76 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1718318",
+      "name": "分享",
+      "font_class": "fenxiang",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "4880425",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "6061396",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "8817464",
+      "name": "收藏",
+      "font_class": "shoucang",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "1727344",
+      "name": "16寄件、发送-线性",
+      "font_class": "jijianfasong-xianxing",
+      "unicode": "e893",
+      "unicode_decimal": 59539
+    },
+    {
+      "icon_id": "10194305",
+      "name": "上传",
+      "font_class": "shangchuan1",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "5767874",
+      "name": "任务进程",
+      "font_class": "renwujincheng",
+      "unicode": "ec35",
+      "unicode_decimal": 60469
+    },
+    {
+      "icon_id": "3092312",
+      "name": "数据",
+      "font_class": "shuju",
+      "unicode": "e78c",
+      "unicode_decimal": 59276
+    },
+    {
+      "icon_id": "6193798",
+      "name": "流程",
+      "font_class": "liucheng",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "11891796",
+      "name": "model",
+      "font_class": "model",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
       "icon_id": "6345965",
       "name": "ellipsis",
       "font_class": "ellipsis",

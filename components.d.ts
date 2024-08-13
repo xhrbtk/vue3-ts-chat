@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CardWrap: typeof import('./src/components/cardWrap.vue')['default']
     Chart: typeof import('./src/components/message/Chart/index.vue')['default']
     ChartText: typeof import('./src/components/message/ChartText.vue')['default']
     ChartTextArea: typeof import('./src/components/chartTextArea.vue')['default']
@@ -14,8 +15,13 @@ declare module 'vue' {
     ChatCode: typeof import('./src/components/message/ChatCode.vue')['default']
     ChatInput: typeof import('./src/components/chatInput.vue')['default']
     ChatList: typeof import('./src/components/chatList.vue')['default']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElPopover: typeof import('element-plus/es')['ElPopover']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LeftAside: typeof import('./src/components/leftAside.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

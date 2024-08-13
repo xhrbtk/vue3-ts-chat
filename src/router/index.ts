@@ -32,6 +32,32 @@ const routes: Array<RouteRecordRaw> = [
         name: 'write',
         component: () => import('@/pages/chatWrite.vue'),
       },
+      {
+        path: '/chat/data',
+        name: 'data',
+        component: () => import('@/pages/chatData.vue'),
+      },
+      {
+        path: '/chat/model',
+        name: 'model',
+        component: () => import('@/pages/chatModel.vue'),
+      },
+      {
+        path: '/chat/flow',
+        name: 'flow',
+        component: () => import('@/pages/chatFlow.vue'),
+      },
+      {
+        path: '/chat/task',
+        name: 'task',
+        component: () => import('@/pages/chatTask.vue'),
+      },
+      {
+        path: '/chat/collection',
+        name: 'collection',
+        component: () => import('@/pages/chatCollection.vue'),
+      },
+    
     ]
   },
   {
