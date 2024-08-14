@@ -43,6 +43,21 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/pages/dataManage/importData.vue'),     
       },
       {
+        path: '/dataManage/tableDetail',
+        name: 'tableDetail',
+        component: () => import('@/pages/dataManage/tableDetail.vue'),     
+      },
+      {
+        path: '/dataManage/graphDetail',
+        name: 'graphDetail',
+        component: () => import('@/pages/dataManage/graphDetail.vue'),     
+      },
+      {
+        path: '/dataManage/documentDetail',
+        name: 'documentDetail',
+        component: () => import('@/pages/dataManage/documentDetail.vue'),     
+      },
+      {
         path: '/chat/model',
         name: 'model',
         component: () => import('@/pages/chatModel.vue'),

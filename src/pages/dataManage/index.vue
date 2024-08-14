@@ -1,83 +1,55 @@
 <template>
     <div class="data-manage p-[20px] flex flex-col h-[100%]">
-        <el-button @click="goingTo('/dataManage/importData')"
-            >导入数据</el-button
-        >
         <!-- 表 -->
         <el-card class="mt-[10px]">
             <div class="card-header">
-                <span>表</span>
+                <div class="flex justify-between mb-[10px]">
+                    <span>表</span>
+                    <el-button type="primary" @click="jumpto('table')"
+                        >导入数据</el-button
+                    >
+                </div>
                 <searchInput></searchInput>
             </div>
             <cardContent
+                :type="'table'"
                 :list="tableData"
                 :showClose="true"
-                @close="handleClose"
+                @delete="handleDelete"
+                @click="handleClick"
             ></cardContent>
-            <el-upload
-                class="upload-demo mt-[10px] mx-auto"
-                drag
-                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                multiple
-            >
-                <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-                <div class="el-upload__text">拖拽文件或<em>点击上传</em></div>
-                <template #tip>
-                    <div class="el-upload__tip">
-                        jpg/png files with a size less than 500kb
-                    </div>
-                </template>
-            </el-upload>
         </el-card>
         <!-- 图谱 -->
         <el-card class="mt-[10px]">
-            <div class="card-header">
+            <div class="card-header flex justify-between">
                 <span>图谱</span>
+                <el-button type="primary" @click="jumpto('graph')"
+                    >导入数据</el-button
+                >
             </div>
             <cardContent
+                :type="'graph'"
                 :list="graphData"
                 :showClose="true"
-                @close="handleClose"
+                @delete="handleDelete"
+                @click="handleClick"
             ></cardContent>
-            <el-upload
-                class="upload-demo mt-[10px] mx-auto"
-                drag
-                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                multiple
-            >
-                <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-                <div class="el-upload__text">拖拽文件或<em>点击上传</em></div>
-                <template #tip>
-                    <div class="el-upload__tip">
-                        jpg/png files with a size less than 500kb
-                    </div>
-                </template>
-            </el-upload>
         </el-card>
         <!-- 文档 -->
         <el-card class="mt-[20px]">
-            <div class="card-header">
+            <div class="card-header flex justify-between">
                 <span>文档</span>
+                <el-button type="primary" @click="jumpto('document')"
+                    >导入数据</el-button
+                >
             </div>
             <cardContent
+                :type="'document'"
                 :list="documentData"
                 :showClose="true"
-                @close="handleClose"
+                @click="handleClick"
+                @delete="handleDelete"
             ></cardContent>
-            <el-upload
-                class="upload-demo mt-[10px] mx-auto"
-                drag
-                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                multiple
-            >
-                <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-                <div class="el-upload__text">拖拽文件或<em>点击上传</em></div>
-                <template #tip>
-                    <div class="el-upload__tip">
-                        jpg/png files with a size less than 500kb
-                    </div>
-                </template>
-            </el-upload>
         </el-card>
     </div>
 </template>
@@ -85,18 +57,34 @@
 <script lang="ts" setup>
 import searchInput from '@/components/searchInput.vue';
 import cardContent from '@/components/cardContent.vue';
-import { ref, defineComponent } from 'vue';
+import { ref, defineComponent, Ref } from 'vue';
 import { TableType, GraphType, DocumentType } from '@/types/TableType';
-import { UploadFilled } from '@element-plus/icons-vue';
 
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const goingTo = (path: string) => router.push({ path });
 
+const jumpto = (type: string) => {
+    switch (type) {
+        case 'table':
+            goingTo('/dataManage/importData?type=table');
+            break;
+        case 'graph':
+            goingTo('/dataManage/importData?type=graph');
+            break;
+        case 'document':
+            goingTo('/dataManage/importData?type=document');
+            break;
+        default:
+            break;
+    }
+};
+
 defineComponent({
     searchInput,
     cardContent,
 });
+
 const tableData = ref<TableType[]>([
     {
         name: '航班信息表1',
@@ -156,10 +144,43 @@ const documentData = ref<DocumentType[]>([
         content: 'word 文件',
     },
 ]);
+const map: Map<string, Ref<any[]>> = new Map([
+    ['table', tableData],
+    ['graph', graphData],
+    ['document', documentData],
+]);
 
-const handleClose = (index: number, list: []) => {
-    console.log('here---');
-    list.splice(index, 1);
+const handleDelete = (index: number, list: any[], type: string) => {
+    console.log('here---', type);
+    switch (type) {
+        case 'table':
+            tableData.value.splice(index, 1);
+            break;
+        case 'graph':
+            graphData.value.splice(index, 1);
+            break;
+        case 'document':
+            documentData.value.splice(index, 1);
+            break;
+        default:
+            break;
+    }
+};
+const handleClick = (item: any, type: string) => {
+    console.log('here---', type);
+    switch (type) {
+        case 'table':
+            goingTo('/dataManage/tableDetail');
+            break;
+        case 'graph':
+            goingTo('/dataManage/graphDetail');
+            break;
+        case 'document':
+            goingTo('/dataManage/documentDetail');
+            break;
+        default:
+            break;
+    }
 };
 </script>
 

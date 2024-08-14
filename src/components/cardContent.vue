@@ -4,7 +4,7 @@
             class="card-box group"
             v-for="item in list"
             :key="item.name"
-            @click="handleClick(item)"
+            @click="handleClick(item, type)"
         >
             <span
                 class="left iconfont icon-shuju text-[18px]"
@@ -21,7 +21,7 @@
             </div>
             <span
                 v-if="showClose"
-                @click="handleClose(index, list)"
+                @click.stop="handleClose(index, list, type)"
                 class="icon-guanbi cursor-pointer text-[18px] iconfont absolute right-[5px] top-[5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             ></span>
         </div>
@@ -32,6 +32,9 @@
 import { ref, defineProps, defineEmits } from 'vue';
 
 defineProps({
+    type: {
+        type: String, // 类型
+    },
     list: {
         type: Array, // 菜单列表
         default: () => [],
@@ -41,12 +44,13 @@ defineProps({
         default: false,
     },
 });
-const emits = defineEmits(['click', 'close']);
-const handleClick = (item: any) => {
-    emits('click', item);
+const emits = defineEmits(['click', 'delete']);
+const handleClick = (item: any, type?: string) => {
+    emits('click', item, type);
 };
-const handleClose = (index: number, list: []) => {
-    emits('close', index, list);
+const handleClose = (index: number, list: [], type?: string) => {
+    console.log('type', type);
+    emits('delete', index, list, type);
 };
 </script>
 

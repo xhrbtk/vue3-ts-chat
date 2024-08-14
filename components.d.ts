@@ -18,6 +18,8 @@ declare module 'vue' {
     ChatInput: typeof import('./src/components/chatInput.vue')['default']
     ChatList: typeof import('./src/components/chatList.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
+    ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElIcon: typeof import('element-plus/es')['ElIcon']
