@@ -1,10 +1,11 @@
 
 export const menuArr= [
     {
-        name: '数据接入',
+        name: '数据管理',
         icon: 'icon-shuju',
         content: '实时资讯，丰富信源，整合搜索',
-        path: '/chat/data',
+        path:  '/dataManage',
+       
     },
     {
         name: '模型管理',

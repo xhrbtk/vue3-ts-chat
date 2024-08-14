@@ -10,35 +10,38 @@
                 <!-- avatar nickname -->
                 <div class="flex items-center mt-[12px] ml-[16px] mr-[10px]">
                     <span
-                        class="avatar iconfont icon-bianzu2 text-[24px] block"
+                        class="avatar iconfont icon-bianzu2 text-[36px] block"
                     ></span>
                     <span
-                        class="ml-[8px] font-semibold text-[12px] leading-[24px]"
+                        class="ml-[8px] font-semibold text-[20px] leading-[24px]"
                         >GOIN3.0</span
                     >
                 </div>
                 <!-- 新建对话 -->
                 <div
-                    class="flex items-center thread-create box-border rounded-[12px] ml-[16px] mt-[12px] mb-[6px] h-[30px] mr-[10px]"
-                    @click="useJumpTo('/chat')"
+                    class="flex items-center thread-create box-border rounded-[12px] ml-[16px] mt-[12px] mb-[6px] h-[40px] mr-[10px]"
+                    @click="goingTo('/chat')"
                 >
                     <span
                         class="iconfont icon-jiahao_o font-semibold text-[14px]"
                     ></span>
-                    <div class="text-[11px] font-semibold ml-[6px]">新对话</div>
+                    <div class="text-[14px] font-semibold ml-[6px]">新对话</div>
                 </div>
                 <div class="w-full mb-[8px] flex flex-col gap-[2px]">
                     <div
                         class="section ml-[16px] mr-[10px]"
+                        :class="{
+                            'active-menu': index === activeMenuIndex,
+                        }"
                         v-for="(item, index) in menuList"
                         :key="index"
-                        @click="useJumpTo(item.path)"
+                        @click="activeMenu(index, item)"
                     >
                         <span
                             class="text-[14px] iconfont"
                             :class="item.icon"
                         ></span>
-                        <div class="text-[11px] ml-[6px]">{{ item.name }}</div>
+                        <div class="text-[14px] ml-[6px]">{{ item.name }}</div>
                     </div>
 
                     <div
@@ -54,7 +57,7 @@
                                 <span
                                     class="text-[14px] iconfont icon-duihua"
                                 ></span>
-                                <div class="text-[11px] ml-[6px]">最近对话</div>
+                                <div class="text-[14px] ml-[6px]">最近对话</div>
                             </div>
                             <span
                                 :class="{ 'icon-arrow-right': !showThradList }"
@@ -71,15 +74,13 @@
                                         'active-thread-item':
                                             index === activeIndex,
                                     }"
-                                    class="thread-item ml-[18px] mr-[10px] text-[14px]"
+                                    class="thread-item ml-[18px] mr-[10px] text-[14px] group"
                                     v-for="(item, index) in threadList"
                                     :key="item.id"
                                     @click="activeThread(index)"
-                                    @mouseenter="activeAction(index)"
-                                    @mouseleave="activeAction(-1)"
                                 >
                                     <div
-                                        class="text-[11px] block overflow-hidden whitespace-nowrap"
+                                        class="text-[13px] block overflow-hidden whitespace-nowrap"
                                         href=""
                                     >
                                         <div>
@@ -90,12 +91,7 @@
                                     <el-popover :width="100" trigger="click">
                                         <template #reference>
                                             <span
-                                                v-show="
-                                                    activeEllipsisIndex ==
-                                                        index ||
-                                                    activeIndex == index
-                                                "
-                                                class="text-[11px] ml-[6px] iconfont icon-ellipsis"
+                                                class="text-[11px] ml-[6px] iconfont icon-ellipsis opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                                             ></span>
                                         </template>
                                         <template #default>
@@ -136,8 +132,8 @@
                     </div>
                     <!-- 收藏 -->
                     <div class="section ml-[16px] mr-[10px]">
-                        <span class="text-[14px] iconfont icon-shoucang"></span>
-                        <div class="text-[11px] ml-[6px]">收藏</div>
+                        <span class="text-[16px] iconfont icon-shoucang"></span>
+                        <div class="text-[14px] ml-[6px]">收藏</div>
                     </div>
                 </div>
             </div>
@@ -147,12 +143,15 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import useJumpTo from '@/hooks/useRouter';
 
-import { Menu, dialogMenuType } from '@/types/common';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const goingTo = (path: string) => router.push({ path });
+
+import { Menu, DialogMenuType } from '@/types/common';
 import { menuArr, dialogMenu } from '@/config/common';
 const menuList = ref<Menu[]>(menuArr);
-const dialogMenuArr = ref<dialogMenuType[]>(dialogMenu);
+const dialogMenuArr = ref<DialogMenuType[]>(dialogMenu);
 
 interface Thread {
     name: string;
@@ -163,32 +162,34 @@ const threadList = ref<Thread[]>([
         name: '今天北京天气几天1',
         id: 1,
     },
-    // {
-    //     name: '今天北京天气几天2',
-    //     id: 2,
-    // },
 ]);
 
-const show = ref<boolean>(true);
-const activeEllipsisIndex = ref<number>(-1);
-const activeAction = (index: number): void => {
-    activeEllipsisIndex.value = index;
-    console.log('activeEllipsisIndex', activeEllipsisIndex);
+// menu 操作
+const activeMenuIndex = ref<number>(-1);
+const activeMenu = (index: number, item: Menu): void => {
+    goingTo(item.path);
+    activeMenuIndex.value = index;
 };
+
+// collapse 操作
+const show = ref<boolean>(true);
 
 const toggleCollapse = (): void => {
     show.value = !show.value;
 };
+
+// 是否展示最近对话列表
 const showThradList = ref<boolean>(true);
 const toggleThreadList = (): void => {
     showThradList.value = !showThradList.value;
 };
 
+// 点击对话列表里的对话
 const activeIndex = ref<number>(-1);
 const activeThread = (index: number): void => {
     activeIndex.value = index;
 };
-// 弹框操作
+// 对话列表里的弹框操作
 const handleDialogMenu = (item: dialogMenuType): void => {
     switch (item.action) {
         case 'share':
@@ -224,7 +225,7 @@ const handleDelete = (): void => {
     background-color: #f3f4f6;
     position: relative;
     transition: width 0.8s;
-    border-right: 0.5px solid rgba(0, 0, 0, 0.8);
+    border-right: 0.5px solid rgba(0, 0, 0, 0.08);
     .icon-collapse {
         position: absolute;
         top: 50%;
@@ -265,12 +266,15 @@ const handleDelete = (): void => {
             align-items: center;
             border-radius: 12px;
             color: rgba(0, 0, 0, 0.85);
-            padding: 4px 8px;
+            padding: 8px 8px;
             cursor: pointer;
             &:hover {
                 background: rgba(0, 87, 255, 0.08);
                 color: #0057ff;
             }
+        }
+        .active-menu {
+            background-color: white;
         }
         .bg-color-line {
             background-color: rgba(0, 0, 0, 0.12);
@@ -303,11 +307,12 @@ const handleDelete = (): void => {
                     justify-content: space-between;
                     border-radius: 12px;
                     padding-left: 16px;
-                    padding-top: 4px;
-                    padding-bottom: 4px;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
                     padding-right: 10px;
                     cursor: pointer;
                     position: relative;
+                    align-items: center;
 
                     &:hover {
                         background-color: white;

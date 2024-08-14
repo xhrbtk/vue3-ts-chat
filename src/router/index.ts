@@ -33,9 +33,14 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/pages/chatWrite.vue'),
       },
       {
-        path: '/chat/data',
+        path: '/dataManage',
         name: 'data',
-        component: () => import('@/pages/chatData.vue'),
+        component: () => import('@/pages/dataManage/index.vue'),
+      },
+      {
+        path: '/dataManage/importData',
+        name: 'importData',
+        component: () => import('@/pages/dataManage/importData.vue'),     
       },
       {
         path: '/chat/model',
@@ -43,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/pages/chatModel.vue'),
       },
       {
-        path: '/chat/flow',
+        path: '/flow',
         name: 'flow',
         component: () => import('@/pages/chatFlow.vue'),
       },

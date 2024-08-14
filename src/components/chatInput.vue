@@ -133,11 +133,12 @@ const deleteFile = (file: UploadUserFile, index: number): void => {
         .input-wrap {
             flex: 1;
             display: flex;
-            font-size: 11px;
+            font-size: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             height: 100%;
+
             .upload-box {
                 display: flex;
                 height: 100%;
@@ -153,6 +154,7 @@ const deleteFile = (file: UploadUserFile, index: number): void => {
             .input-textarea-box {
                 width: clamp(200px, 90%, 800px);
                 display: flex;
+                flex: 1;
 
                 .input-textarea {
                     display: flex;
@@ -175,7 +177,7 @@ const deleteFile = (file: UploadUserFile, index: number): void => {
 .input-container {
     .el-textarea__inner {
         box-shadow: none !important;
-        font-size: 12px;
+        font-size: 14px;
         resize: none !important;
     }
     .el-upload-list {

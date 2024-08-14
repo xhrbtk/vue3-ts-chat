@@ -6,18 +6,15 @@
             <li
                 v-for="(item, index) in fileList"
                 :key="index"
-                class="file-box pr-[8px] pl-[8px] rounded-[10px] flex text-[12px] items-center cursor-pointer"
-                @mouseenter="handleCloseIcon(index)"
-                @mouseleave="handleCloseIcon(-1)"
+                class="file-box pr-[8px] pl-[8px] pt-[4px] pb-[4px] rounded-[10px] flex text-[14px] items-center cursor-pointer group"
             >
                 <img :src="item.url" alt="" class="w-[40px] h-[40px]" />
-                <div class="text-[11px] text-wrap">
+                <div class="text-[14px] text-wrap">
                     <p class="line1">{{ item.name }}</p>
-                    <p class="line2">Image 926kb</p>
+                    <p class="line2 text-[12px]">Image 926kb</p>
                 </div>
                 <span
-                    v-show="showCloseIconIndex == index"
-                    class="icon-guanbi cursor-pointer text-[12px] iconfont close-icon"
+                    class="icon-guanbi cursor-pointer text-[18px] iconfont absolute right-[0px] top-[0px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     @click="deleteFile(item, index)"
                 ></span>
             </li>
@@ -33,21 +30,17 @@ defineProps({
     },
 });
 const emits = defineEmits(['deleteFile']);
-const showCloseIconIndex = ref(-1);
-const handleCloseIcon = (index: number): void => {
-    showCloseIconIndex.value = index;
-};
+
 const deleteFile = (item: any, index: number): void => {
     // 点击删除按钮时触发
     emits('deleteFile', item, index);
-    showCloseIconIndex.value = index;
 };
 </script>
 <style lang="scss" scoped>
 // 上传文件 展示框
 .uploade-file-box {
     flex-shrink: 0;
-    max-height: 107px;
+    max-height: 127px;
     overflow-y: auto;
     display: flex;
     .el-upload-list {
@@ -70,7 +63,6 @@ const deleteFile = (item: any, index: number): void => {
                 }
                 .line2 {
                     color: rgba(0, 0, 0, 0.3);
-                    font-size: 10px;
                 }
             }
             .close-icon {

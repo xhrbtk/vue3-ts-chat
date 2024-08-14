@@ -4,7 +4,6 @@
         <main class="content">
             <RouterView />
         </main>
-        <aside class="right">right</aside>
     </div>
 </template>
 
@@ -25,7 +24,6 @@ defineComponent({
 .chat-main {
     position: relative;
     display: flex;
-    border: 1px solid red;
     height: 100vh;
     .left {
         flex-shrink: 0;
@@ -40,7 +38,6 @@ defineComponent({
     .right {
         flex-shrink: 0;
         width: 200px;
-        border: 1px solid red;
         height: 100%;
     }
 }

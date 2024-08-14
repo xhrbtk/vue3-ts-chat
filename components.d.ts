@@ -7,6 +7,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CardContent: typeof import('./src/components/cardContent.vue')['default']
+    CardMessage: typeof import('./src/components/cardMessage.vue')['default']
     CardWrap: typeof import('./src/components/cardWrap.vue')['default']
     Chart: typeof import('./src/components/message/Chart/index.vue')['default']
     ChartText: typeof import('./src/components/message/ChartText.vue')['default']
@@ -17,6 +19,7 @@ declare module 'vue' {
     ChatList: typeof import('./src/components/chatList.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElPopover: typeof import('element-plus/es')['ElPopover']
@@ -26,6 +29,7 @@ declare module 'vue' {
     LeftAside: typeof import('./src/components/leftAside.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchInput: typeof import('./src/components/searchInput.vue')['default']
     UploadBox: typeof import('./src/components/uploadBox.vue')['default']
     UsePinia: typeof import('./src/components/usePinia.vue')['default']
   }
