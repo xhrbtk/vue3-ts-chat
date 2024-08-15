@@ -4,11 +4,11 @@
             <el-input
                 class="input-textarea"
                 type="text"
-                placeholder="请输入关键词进行表格检索"
-                v-model="message"
+                :placeholder="placeholder"
+                v-model="inputValue"
             ></el-input>
         </div>
-        <div class="send-box">
+        <div class="send-box" @click="handleSearch">
             <span
                 class="icon-jijianfasong-xianxing cursor-pointer text-[24px] iconfont"
             ></span>
@@ -16,8 +16,24 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
-const message = ref('');
+import { ref, defineProps, defineEmits, watch } from 'vue';
+const props = defineProps({
+    placeholder: {
+        type: String,
+        default: '请输入关键词进行表格检索',
+    },
+    modelValue: {
+        type: String,
+    },
+});
+const emits = defineEmits(['update:modelValue', 'handleSearch']);
+const inputValue = ref(props.modelValue);
+watch(inputValue, (newVal) => {
+    emits('update:modelValue', newVal);
+});
+const handleSearch = () => {
+    emits('handleSearch');
+};
 </script>
 
 <style lang="scss" scoped>

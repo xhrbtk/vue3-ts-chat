@@ -9,19 +9,40 @@
         <!-- 数据库-->
         <el-card class="mt-[10px]">
             <div class="card-header">
-                <span>数据库</span>
+                <div class="flex justify-between mb-[10px]">
+                    <span>数据库</span>
+                </div>
             </div>
+            <div class="flex justify-end">
+                <el-button type="primary" @click="showDataBaseDialog = true"
+                    >导入</el-button
+                >
+            </div>
+
+            <dataBaseDialog
+                v-model="showDataBaseDialog"
+                @submitDataBaseForm="submitDataBaseForm"
+                @update:showDataBaseDialog="showDataBaseDialog = $event"
+            ></dataBaseDialog>
         </el-card>
         <!-- 数据件-->
         <el-card class="mt-[10px]">
             <div class="card-header">
-                <span>数据件</span>
+                <div class="flex justify-between mb-[10px]">
+                    <span>数据件</span>
+                </div>
             </div>
+            <div class="flex justify-end">
+                <el-button type="primary" @click="showDataFilesDialog = true"
+                    >导入</el-button
+                >
+            </div>
+            <dataFilesDialog v-model="showDataFilesDialog"></dataFilesDialog>
         </el-card>
         <!-- 本地文件-->
         <el-card class="mt-[10px]">
             <div class="card-header">
-                <span>本地文件</span>
+                <span>本地文件导入</span>
             </div>
             <el-upload
                 class="upload-demo mt-[10px] mx-auto"
@@ -32,9 +53,7 @@
                 <el-icon class="el-icon--upload"><upload-filled /></el-icon>
                 <div class="el-upload__text">拖拽文件或<em>点击上传</em></div>
                 <template #tip>
-                    <div class="el-upload__tip">
-                        jpg/png files with a size less than 500kb
-                    </div>
+                    <div class="el-upload__tip">xls/csv/txt/word/PDF</div>
                 </template>
             </el-upload>
         </el-card>
@@ -42,10 +61,68 @@
         <!-- we b-->
         <el-card class="mt-[10px]">
             <div class="card-header">
-                <span>web</span>
+                <span>web数据导入</span>
             </div>
+            <div class="flex justify-end">
+                <el-button type="primary" @click="showWebDialog = true"
+                    >导入</el-button
+                >
+            </div>
+            <webDialog v-model="showWebDialog"></webDialog>
+            <!-- <div class="flex mt-[10px]">
+                <el-input
+                    v-model="webUrl"
+                    placeholder="请输入文件的url"
+                    class="mr-[10px]"
+                ></el-input>
+                <el-button type="primary">提交</el-button>
+            </div>
+            <div class="el-upload__tip">
+                支持html/txt/word/pdf/xls/csv等文档的解析
+            </div> -->
         </el-card>
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<script lang="ts" setup>
+import dataBaseDialog from '@/components/importData/dataBaseDialog.vue';
+import dataFilesDialog from '@/components/importData/dataFilesDialog.vue';
+import webDialog from '@/components/importData/webDialog.vue';
+import { UploadFilled } from '@element-plus/icons-vue';
+import { ref, Ref, watchEffect, reactive, defineComponent } from 'vue';
+import { useRoute } from 'vue-router';
+const route = useRoute();
+
+defineComponent({ dataBaseDialog, dataFilesDialog, webDialog });
+
+const type: Ref<string | undefined> = ref(
+    route.query.type as string | undefined,
+);
+
+// 数据库导入模块
+const showDataBaseDialog = ref(false);
+const submitDataBaseForm = (dataBaseForm: any) => {
+    console.log('dataBaseForm', dataBaseForm);
+    console.log('showDataBaseDialog', showDataBaseDialog);
+    // showDataBaseDialog.value = false;
+};
+
+// 数据件导入模块
+const showDataFilesDialog = ref<boolean>(false);
+
+// web导入模块
+const showWebDialog = ref<boolean>(false);
+</script>
+
+<style lang="scss" scoped>
+.import-data {
+    overflow-y: scroll;
+}
+</style>
+<style lang="scss">
+.import-data {
+    .el-card {
+        overflow: visible !important;
+    }
+}
+</style>

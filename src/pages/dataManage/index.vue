@@ -58,22 +58,22 @@
 import searchInput from '@/components/searchInput.vue';
 import cardContent from '@/components/cardContent.vue';
 import { ref, defineComponent, Ref } from 'vue';
-import { TableType, GraphType, DocumentType } from '@/types/TableType';
+import { TableType, GraphType, DocumentType } from '@/types/data-manage.d.ts';
 
 import { useRouter } from 'vue-router';
 const router = useRouter();
-const goingTo = (path: string) => router.push({ path });
+const goingTo = (path: string, query?: any) => router.push({ path, query });
 
 const jumpto = (type: string) => {
     switch (type) {
         case 'table':
-            goingTo('/dataManage/importData?type=table');
+            goingTo('/dataManage/importData', { type: 'table' });
             break;
         case 'graph':
-            goingTo('/dataManage/importData?type=graph');
+            goingTo('/dataManage/importData', { type: 'graph' });
             break;
         case 'document':
-            goingTo('/dataManage/importData?type=document');
+            goingTo('/dataManage/importData', { type: 'document' });
             break;
         default:
             break;
@@ -144,11 +144,6 @@ const documentData = ref<DocumentType[]>([
         content: 'word 文件',
     },
 ]);
-const map: Map<string, Ref<any[]>> = new Map([
-    ['table', tableData],
-    ['graph', graphData],
-    ['document', documentData],
-]);
 
 const handleDelete = (index: number, list: any[], type: string) => {
     console.log('here---', type);
@@ -167,16 +162,16 @@ const handleDelete = (index: number, list: any[], type: string) => {
     }
 };
 const handleClick = (item: any, type: string) => {
-    console.log('here---', type);
+    console.log('here---', item.name);
     switch (type) {
         case 'table':
-            goingTo('/dataManage/tableDetail');
+            goingTo(`/dataManage/tableDetail`, { name: item.name });
             break;
         case 'graph':
-            goingTo('/dataManage/graphDetail');
+            goingTo(`/dataManage/graphDetail`, { name: item.name });
             break;
         case 'document':
-            goingTo('/dataManage/documentDetail');
+            goingTo(`/dataManage/documentDetail`, { name: item.name });
             break;
         default:
             break;
