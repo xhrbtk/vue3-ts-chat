@@ -7,7 +7,7 @@
             <el-breadcrumb-item>导入数据</el-breadcrumb-item>
         </el-breadcrumb>
         <!-- 数据库-->
-        <el-card class="mt-[10px]">
+        <el-card class="mt-[10px]" v-if="type == 'table' || type == 'graph'">
             <div class="card-header">
                 <div class="flex justify-between mb-[10px]">
                     <span>数据库</span>
@@ -26,7 +26,7 @@
             ></dataBaseDialog>
         </el-card>
         <!-- 数据件-->
-        <el-card class="mt-[10px]">
+        <el-card class="mt-[10px]" v-if="type == 'table' || type == 'graph'">
             <div class="card-header">
                 <div class="flex justify-between mb-[10px]">
                     <span>数据件</span>
@@ -40,7 +40,7 @@
             <dataFilesDialog v-model="showDataFilesDialog"></dataFilesDialog>
         </el-card>
         <!-- 本地文件-->
-        <el-card class="mt-[10px]">
+        <el-card class="mt-[10px]" v-if="type == 'document' || type == 'table'">
             <div class="card-header">
                 <span>本地文件导入</span>
             </div>
@@ -59,7 +59,7 @@
         </el-card>
 
         <!-- we b-->
-        <el-card class="mt-[10px]">
+        <el-card class="mt-[10px]" v-if="type == 'document'">
             <div class="card-header">
                 <span>web数据导入</span>
             </div>
@@ -69,17 +69,6 @@
                 >
             </div>
             <webDialog v-model="showWebDialog"></webDialog>
-            <!-- <div class="flex mt-[10px]">
-                <el-input
-                    v-model="webUrl"
-                    placeholder="请输入文件的url"
-                    class="mr-[10px]"
-                ></el-input>
-                <el-button type="primary">提交</el-button>
-            </div>
-            <div class="el-upload__tip">
-                支持html/txt/word/pdf/xls/csv等文档的解析
-            </div> -->
         </el-card>
     </div>
 </template>

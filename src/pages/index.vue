@@ -34,6 +34,8 @@ defineComponent({
         display: flex;
         flex-direction: column;
         padding-bottom: 20px;
+        width: calc(100% - 250px);
+        border: 1px solid red;
     }
     .right {
         flex-shrink: 0;
