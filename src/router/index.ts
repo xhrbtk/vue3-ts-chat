@@ -23,6 +23,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/pages/index.vue'),
     children:[
       {
+        path: '/test',
+        name: 'test',
+        component: () => import('@/pages/test.vue'),
+      },
+      {
         path: '/chat',
         name: 'chat',
         component: () => import('@/pages/chatPage.vue'),
