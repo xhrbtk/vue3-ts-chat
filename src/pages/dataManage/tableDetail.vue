@@ -1,6 +1,6 @@
 <template>
     <div
-        class="table-detail p-[10px] flex flex-col h-[100%] w-[100%] overflow-hidden"
+        class="table-detail p-[10px] pl-[20px] flex flex-col h-[100%] w-[100%] overflow-hidden"
     >
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/dataManage' }"
@@ -13,7 +13,7 @@
             class="flex flex-col w-full justify-between mt-[10px] w-[100%] h-[100%]"
         >
             <p class="text-[14px]">数据概览</p>
-            <div class="h-[50%] w-full flex relative">
+            <div class="h-[45%] w-full flex relative">
                 <el-tabs
                     type="border-card"
                     v-model="activeName"
@@ -28,7 +28,7 @@
                     </el-tab-pane>
                 </el-tabs>
                 <div class="overflow-auto w-[100%] h-[100%] ml-[10px]">
-                    <el-table :data="tableData" border>
+                    <el-table :data="tableData" border size="small">
                         <el-table-column prop="date" label="Date" />
                         <el-table-column prop="name" label="Name" />
                         <el-table-column prop="state" label="State" />
@@ -45,20 +45,24 @@
                     </div>
                 </div>
             </div>
-            <div class="h-[50%] w-full relative mt-[10px]">
+            <el-divider border-style="dashed" />
+            <div class="h-[45%] w-full relative">
                 <p class="text-[14px]">数据查询</p>
-                <div class="h-[90%] w-full flex">
-                    <div class="flex items-center w-[50%] h-[200px]">
-                        <codeSearch
-                            placeholder="请输入sql语句进行查询"
-                            class="flex-1 mr-[10px]"
-                        ></codeSearch>
-                        <el-button style="margin-left: auto" type="primary"
+                <div class="h-[96%] w-full flex">
+                    <div class="flex flex-col w-[40%] mr-[10px]">
+                        <el-button
+                            class="w-[20%] ml-auto mb-[10px]"
+                            size="small"
+                            type="primary"
                             >查询</el-button
                         >
+                        <codeSearch
+                            placeholder="请输入sql语句进行查询"
+                            class="flex-1"
+                        ></codeSearch>
                     </div>
-                    <div class="w-[50%] h-[90%] overflow-auto">
-                        <el-table :data="tableData" border>
+                    <div class="w-full h-[90%] overflow-auto">
+                        <el-table :data="tableData" border size="small">
                             <el-table-column prop="date" label="Date" />
                             <el-table-column prop="name" label="Name" />
                             <el-table-column prop="state" label="State" />
@@ -93,6 +97,118 @@ const name: Ref<string | undefined> = ref(
     route.query.name as string | undefined,
 );
 const tableData = [
+    {
+        date: '2016-05-03',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-02',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-04',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-01',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-08',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-06',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-07',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-03',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-02',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-04',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-01',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-08',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-06',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
+    {
+        date: '2016-05-07',
+        name: 'Tom',
+        state: 'California',
+        city: 'Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
+        zip: 'CA 90036',
+    },
     {
         date: '2016-05-03',
         name: 'Tom',

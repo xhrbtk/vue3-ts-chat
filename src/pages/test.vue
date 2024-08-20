@@ -1,74 +1,27 @@
 <template>
-    <div style="border: 1px solid red; height: 50%; overflow: auto">
-        <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="date" label="Date" width="180" />
-            <el-table-column prop="name" label="Name" width="180" />
-            <el-table-column prop="address" label="Address" />
-        </el-table>
+    <div class="w-[800px] h-[800px]">
+        <NeovisGraph
+            neo4j-uri="bolt://44.223.97.198:7687"
+            neo4j-user="neo4j"
+            neo4j-password="catalogs-laundry-goggles"
+            :query="query"
+        />
+        <el-input v-model="inputValue"></el-input>
+        <el-button @click="search">搜索</el-button>
     </div>
 </template>
 
 <script lang="ts" setup>
-const tableData = [
-    {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2018-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-];
+import neovisGraph from '@/components/neovisGraph.vue';
+
+import { defineComponent, ref } from 'vue';
+defineComponent({
+    neovisGraph,
+});
+const query = ref<string>('MATCH p=()-[r:PLAYED_IN]->() RETURN p LIMIT 200');
+const inputValue = ref<string>('');
+const search = () => {
+    query.value = inputValue.value;
+    console.log(query.value);
+};
 </script>

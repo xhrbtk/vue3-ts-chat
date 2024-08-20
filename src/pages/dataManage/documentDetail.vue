@@ -1,7 +1,5 @@
 <template>
-    <div
-        class="table-detail p-[20px] flex flex-col h-[100%] w-[100%] overflow-hidden"
-    >
+    <div class="table-detail p-[10px] pl-[20px] flex flex-col h-full w-full">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/dataManage' }"
                 >数据管理</el-breadcrumb-item
@@ -9,42 +7,33 @@
             <el-breadcrumb-item>文档</el-breadcrumb-item>
             <el-breadcrumb-item>{{ name }}</el-breadcrumb-item>
         </el-breadcrumb>
-        <div
-            class="flex w-full justify-between mt-[20px] overflow-y-auto w-[100%] overflow-y-hidden"
-        >
-            <div class="left flex-1 w-[60%] mr-[20px] overflow-y-auto">
-                <el-card class="overflow-y-auto w-[100%]">
-                    <template #header>
-                        <div class="card-header">
-                            <span>数据浏览</span>
-                        </div>
-                    </template>
-                    <div class="mt-[10px]">
-                        <pdfViewer></pdfViewer>
-                    </div>
-                </el-card>
-
-                <el-card class="mt-[20px] overflow-y-auto">
-                    <template #header>
-                        <div class="card-header">
-                            <span>数据查询</span>
-                        </div>
-                    </template>
+        <div class="w-full h-full mt-[10px] overflow-auto">
+            <p class="text-[14px]">数据浏览</p>
+            <div class="h-[80%] w-full flex relative">
+                <el-tabs
+                    v-model="activeName"
+                    type="border-card"
+                    class="w-[40%] h-[100%] overflow-auto mr-[10px]"
+                >
+                    <el-tab-pane label="数据概况" name="1">
+                        <tableInfo :tableInfoList="tableInfoList"></tableInfo>
+                    </el-tab-pane>
+                </el-tabs>
+                <div class="w-full h-full overflow-auto">
+                    <pdfViewer></pdfViewer>
+                </div>
+            </div>
+            <el-divider border-style="dashed" />
+            <div class="h-[80%] w-full relative flex flex-col">
+                <p class="text-[14px]">数据查询</p>
+                <div>
                     <searchInput
                         placeholder="请输入文字对文件内容进行分析"
                     ></searchInput>
-                    <div class="mt-[10px]"></div>
-                </el-card>
-            </div>
-            <div class="right w-[300px] h-[100%]">
-                <el-card>
-                    <template #header>
-                        <div class="card-header">
-                            <span>数据概况</span>
-                        </div>
-                        <tableInfo :tableInfoList="tableInfoList"></tableInfo>
-                    </template>
-                </el-card>
+                </div>
+                <div class="w-full h-full mt-[10px] overflow-auto">
+                    <pdfViewer></pdfViewer>
+                </div>
             </div>
         </div>
     </div>
@@ -63,6 +52,7 @@ const name: Ref<string | undefined> = ref(
     route.query.name as string | undefined,
 );
 
+const activeName = ref<string>('1');
 interface TableInfoType {
     label: string;
     value: string;

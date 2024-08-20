@@ -1,7 +1,7 @@
 <template>
     <ul class="info">
         <li
-            class="flex justify-between items-center border-b-[0.5px] border-[#E0E0E0] py-2.5 px-4 text-[14px]"
+            class="flex justify-between items-center border-b-[0.5px] border-[#E0E0E0] py-2.5 px-4 text-[13px]"
             v-for="(item, index) of tableInfoList"
             :key="index"
         >

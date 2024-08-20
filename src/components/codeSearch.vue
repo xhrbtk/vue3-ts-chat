@@ -1,5 +1,5 @@
 <template>
-    <div class="code-search">
+    <div class="code-search h-full">
         <codemirror
             :placeholder="placeholder"
             v-model="code"
@@ -7,7 +7,8 @@
             :autofocus="true"
             :indent-with-tab="true"
             :tab-size="4"
-            style="height: 200px"
+            class="h-full"
+            style="height: 80%"
         />
     </div>
 </template>
