@@ -1,93 +1,66 @@
 <template>
     <div
-        class="data-manage p-[10px] pl-[20px] flex flex-col h-[100%] overflow-auto"
+        class="model-manage p-[10px] pl-[20px] flex flex-col h-[100%] overflow-auto"
     >
-        <!-- 表 -->
-        <el-card>
+        <el-card
+            v-for="(item, index) of pageData"
+            :key="index"
+            class="mt-[10px]"
+        >
             <div class="card-header">
                 <div class="flex justify-between mb-[10px]">
-                    <span>表</span>
-                    <el-button type="primary" @click="jumpto('table')"
+                    <span>{{ item.title }}</span>
+                    <el-button type="primary" @click="openModel(item.type)"
                         >导入数据</el-button
                     >
                 </div>
-                <searchInput></searchInput>
+                <searchInput
+                    placeholder="输入关键词进行模型检索"
+                    :type="item.type"
+                    @handleSearch="handleSearch"
+                ></searchInput>
             </div>
             <cardContent
-                :type="'table'"
-                :list="tableData"
+                :type="item.type"
+                :list="item.list"
                 :showClose="true"
                 @delete="handleDelete"
                 @click="handleClick"
-            ></cardContent>
-        </el-card>
-        <!-- 图谱 -->
-        <el-card class="mt-[10px]">
-            <div class="card-header flex justify-between">
-                <span>图谱</span>
-                <el-button type="primary" @click="jumpto('graph')"
-                    >导入数据</el-button
-                >
-            </div>
-            <cardContent
-                :type="'graph'"
-                :list="graphData"
-                :showClose="true"
-                @delete="handleDelete"
-                @click="handleClick"
-            ></cardContent>
-        </el-card>
-        <!-- 文档 -->
-        <el-card class="mt-[20px]">
-            <div class="card-header flex justify-between">
-                <span>文档</span>
-                <el-button type="primary" @click="jumpto('document')"
-                    >导入数据</el-button
-                >
-            </div>
-            <cardContent
-                :type="'document'"
-                :list="documentData"
-                :showClose="true"
-                @click="handleClick"
-                @delete="handleDelete"
             ></cardContent>
         </el-card>
     </div>
+    <addAnalysisDialog v-model="showAddAnalysisDialog"></addAnalysisDialog>
+    <addLocalDialog v-model="showAddLocalDialog"></addLocalDialog>
+    <addOpenDialog v-model="showAddOpenDialog"></addOpenDialog>
 </template>
 
 <script lang="ts" setup>
 import searchInput from '@/components/searchInput.vue';
 import cardContent from '@/components/cardContent.vue';
+import addAnalysisDialog from '@/components/importData/modelManage/addAnalysisDialog.vue';
+import addLocalDialog from '@/components/importData/modelManage/addLocalModelDialog.vue';
+import addOpenDialog from '@/components/importData/modelManage/addOpenModelDialog.vue';
 import { ref, defineComponent, Ref } from 'vue';
-import { TableType, GraphType, DocumentType } from '@/types/data-manage.d.ts';
+import {
+    analysisOperatorType,
+    localLargeModelType,
+    openLargeModelType,
+    pageDataType,
+} from '@/types/model-manage.d.ts';
 
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const goingTo = (path: string, query?: any) => router.push({ path, query });
 
-const jumpto = (type: string) => {
-    switch (type) {
-        case 'table':
-            goingTo('/dataManage/importData', { type: 'table' });
-            break;
-        case 'graph':
-            goingTo('/dataManage/importData', { type: 'graph' });
-            break;
-        case 'document':
-            goingTo('/dataManage/importData', { type: 'document' });
-            break;
-        default:
-            break;
-    }
-};
-
 defineComponent({
     searchInput,
     cardContent,
+    addAnalysisDialog,
+    addLocalDialog,
+    addOpenDialog,
 });
 
-const tableData = ref<TableType[]>([
+const analysisOperatorData = ref<analysisOperatorType[]>([
     {
         name: '航班信息表1',
         content: '各飞行航班信息',
@@ -105,7 +78,7 @@ const tableData = ref<TableType[]>([
         content: '各飞行航班信息',
     },
 ]);
-const graphData = ref<GraphType[]>([
+const localLargeModelData = ref<localLargeModelType[]>([
     {
         name: '人物关系图谱',
         content: '各飞行航班信息',
@@ -123,8 +96,7 @@ const graphData = ref<GraphType[]>([
         content: '各飞行航班信息',
     },
 ]);
-
-const documentData = ref<DocumentType[]>([
+const openLargeModelData = ref<openLargeModelType[]>([
     {
         name: '张三建立公司',
         content: 'word 文件',
@@ -147,47 +119,72 @@ const documentData = ref<DocumentType[]>([
     },
 ]);
 
+const pageData = ref<pageDataType[]>([
+    {
+        type: 'anysis',
+        title: '分析算子',
+        inputValue: ref(''),
+        list: analysisOperatorData,
+    },
+    {
+        type: 'local',
+        title: '本地大模型',
+        inputValue: ref(''),
+        list: localLargeModelData,
+    },
+    {
+        type: 'open',
+        title: '开放大模型',
+        inputValue: ref(''),
+        list: openLargeModelData,
+    },
+]);
 const handleDelete = (index: number, list: any[], type: string) => {
     console.log('here---', type);
-    switch (type) {
-        case 'table':
-            tableData.value.splice(index, 1);
-            break;
-        case 'graph':
-            graphData.value.splice(index, 1);
-            break;
-        case 'document':
-            documentData.value.splice(index, 1);
-            break;
-        default:
-            break;
-    }
+    list.splice(index, 1);
+};
+const handleSearch = (value: string, type: string) => {
+    console.log('here---', value, type);
 };
 const handleClick = (item: any, type: string) => {
     console.log('here---', item.name);
     switch (type) {
-        case 'table':
+        case 'anysis':
             goingTo(`/dataManage/tableDetail`, { name: item.name });
             break;
-        case 'graph':
+        case 'local':
             goingTo(`/dataManage/graphDetail`, { name: item.name });
             break;
-        case 'document':
+        case 'open':
             goingTo(`/dataManage/documentDetail`, { name: item.name });
             break;
         default:
             break;
     }
 };
+
+// 打开弹框
+const showAddAnalysisDialog = ref<boolean>(false);
+const showAddLocalDialog = ref<boolean>(false);
+const showAddOpenDialog = ref<boolean>(false);
+const openModel = (type: string) => {
+    switch (type) {
+        case 'anysis':
+            showAddAnalysisDialog.value = true;
+            break;
+        case 'local':
+            showAddLocalDialog.value = true;
+            break;
+        case 'open':
+            showAddOpenDialog.value = true;
+            break;
+    }
+};
 </script>
 
-<style lang="scss" scoped>
-.data-manage {
-    overflow: auto;
-}
-</style>
+<style lang="scss" scoped></style>
 <style lang="scss">
-.data-manage {
+.model-manage {
     .el-card {
         overflow: visible !important;
     }

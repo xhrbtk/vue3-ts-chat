@@ -74,9 +74,9 @@
 </template>
 
 <script lang="ts" setup>
-import dataBaseDialog from '@/components/importData/dataBaseDialog.vue';
-import dataFilesDialog from '@/components/importData/dataFilesDialog.vue';
-import webDialog from '@/components/importData/webDialog.vue';
+import dataBaseDialog from '@/components/importData/dataManage/dataBaseDialog.vue';
+import dataFilesDialog from '@/components/importData/dataManage/dataFilesDialog.vue';
+import webDialog from '@/components/importData/dataManage/webDialog.vue';
 import { UploadFilled } from '@element-plus/icons-vue';
 import { ref, Ref, watchEffect, reactive, defineComponent } from 'vue';
 import { useRoute } from 'vue-router';

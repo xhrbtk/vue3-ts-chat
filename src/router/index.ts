@@ -63,9 +63,9 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/pages/dataManage/documentDetail.vue'),     
       },
       {
-        path: '/chat/model',
+        path: '/model',
         name: 'model',
-        component: () => import('@/pages/chatModel.vue'),
+        component: () => import('@/pages/modelManage/index.vue'),
       },
       {
         path: '/flow',

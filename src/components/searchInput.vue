@@ -18,6 +18,9 @@
 <script lang="ts" setup>
 import { ref, defineProps, defineEmits, watch } from 'vue';
 const props = defineProps({
+    type: {
+        type: String,
+    },
     placeholder: {
         type: String,
         default: '请输入关键词进行表格检索',
@@ -32,7 +35,10 @@ watch(inputValue, (newVal) => {
     emits('update:modelValue', newVal);
 });
 const handleSearch = () => {
-    emits('handleSearch');
+    emits(
+        'handleSearch',
+        ...(props.type ? [props.type, inputValue.value] : [inputValue.value]),
+    );
 };
 </script>
 

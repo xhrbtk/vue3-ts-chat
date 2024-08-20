@@ -11,7 +11,7 @@ export const menuArr= [
         name: '模型管理',
         icon: 'icon-model',
         content: '实时资讯，丰富信源，整合搜索',
-        path: '/chat/model',
+        path: '/model',
     },
     {
         name: '流程构建',

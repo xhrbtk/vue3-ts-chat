@@ -63,15 +63,7 @@
 import { DatabaseType, DataBaseFormType } from '@/types/data-manage.d.ts';
 import { ComponentSize, FormInstance, FormRules } from 'element-plus';
 import { emit } from 'process';
-import {
-    ref,
-    Ref,
-    watchEffect,
-    reactive,
-    defineProps,
-    defineEmits,
-    handleError,
-} from 'vue';
+import { ref, Ref, watchEffect, reactive, defineProps, defineEmits } from 'vue';
 
 // 弹框
 const props = defineProps({

@@ -7,6 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AddAnalysisDialog: typeof import('./src/components/importData/modelManage/addAnalysisDialog.vue')['default']
+    AddLocalModelDialog: typeof import('./src/components/importData/modelManage/addLocalModelDialog.vue')['default']
+    AddOpenModelDialog: typeof import('./src/components/importData/modelManage/addOpenModelDialog.vue')['default']
     CardContent: typeof import('./src/components/cardContent.vue')['default']
     CardMessage: typeof import('./src/components/cardMessage.vue')['default']
     CardWrap: typeof import('./src/components/cardWrap.vue')['default']
@@ -18,8 +21,8 @@ declare module 'vue' {
     ChatInput: typeof import('./src/components/chatInput.vue')['default']
     ChatList: typeof import('./src/components/chatList.vue')['default']
     CodeSearch: typeof import('./src/components/codeSearch.vue')['default']
-    DataBaseDialog: typeof import('./src/components/importData/dataBaseDialog.vue')['default']
-    DataFilesDialog: typeof import('./src/components/importData/dataFilesDialog.vue')['default']
+    DataBaseDialog: typeof import('./src/components/importData/dataManage/dataBaseDialog.vue')['default']
+    DataFilesDialog: typeof import('./src/components/importData/dataManage/dataFilesDialog.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
@@ -54,7 +57,7 @@ declare module 'vue' {
     TableInfo: typeof import('./src/components/tableInfo.vue')['default']
     UploadBox: typeof import('./src/components/uploadBox.vue')['default']
     UsePinia: typeof import('./src/components/usePinia.vue')['default']
-    WebDialog: typeof import('./src/components/importData/webDialog.vue')['default']
+    WebDialog: typeof import('./src/components/importData/dataManage/webDialog.vue')['default']
     WordViewer: typeof import('./src/components/wordViewer.vue')['default']
     XlsxViewer: typeof import('./src/components/xlsxViewer.vue')['default']
   }
