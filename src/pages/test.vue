@@ -1,27 +1,74 @@
 <template>
-    <div class="w-[800px] h-[800px]">
-        <NeovisGraph
-            neo4j-uri="bolt://44.223.97.198:7687"
-            neo4j-user="neo4j"
-            neo4j-password="catalogs-laundry-goggles"
-            :query="query"
-        />
-        <el-input v-model="inputValue"></el-input>
-        <el-button @click="search">搜索</el-button>
-    </div>
+    <el-form
+        ref="formRef"
+        style="max-width: 600px"
+        :model="numberValidateForm"
+        label-width="auto"
+        class="demo-ruleForm"
+    >
+        <el-form-item
+            label="age"
+            prop="age"
+            :rules="[
+                { required: true, message: 'age is required' },
+                { type: 'number', message: 'age must be a number' },
+            ]"
+        >
+            <el-input
+                v-model.number="numberValidateForm.age"
+                type="text"
+                autocomplete="off"
+            />
+        </el-form-item>
+
+        <x :arr="arr"></x>
+
+        <el-form-item>
+            <el-button type="primary" @click="submitForm(formRef)"
+                >Submit</el-button
+            >
+            <el-button @click="resetForm(formRef)">Reset</el-button>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script lang="ts" setup>
-import neovisGraph from '@/components/neovisGraph.vue';
+import x from '@/components/x.vue';
+import { reactive, ref, defineComponent } from 'vue';
+import type { FormInstance } from 'element-plus';
 
-import { defineComponent, ref } from 'vue';
 defineComponent({
-    neovisGraph,
+    x,
 });
-const query = ref<string>('MATCH p=()-[r:PLAYED_IN]->() RETURN p LIMIT 200');
-const inputValue = ref<string>('');
-const search = () => {
-    query.value = inputValue.value;
-    console.log(query.value);
+const formRef = ref<FormInstance>();
+
+const numberValidateForm = reactive({
+    age: '',
+});
+const arr = reactive([
+    {
+        label: '1',
+        value: '',
+    },
+    {
+        label: '2',
+        value: '',
+    },
+]);
+
+const submitForm = (formEl: FormInstance | undefined) => {
+    if (!formEl) return;
+    formEl.validate((valid) => {
+        if (valid) {
+            console.log('submit!');
+        } else {
+            console.log('error submit!');
+        }
+    });
+};
+
+const resetForm = (formEl: FormInstance | undefined) => {
+    if (!formEl) return;
+    formEl.resetFields();
 };
 </script>

@@ -5,6 +5,7 @@
         @close="handleClose(dataBaseFormRef)"
     >
         <el-form
+            size="small"
             ref="dataBaseFormRef"
             :model="dataBaseForm"
             :rules="rules"

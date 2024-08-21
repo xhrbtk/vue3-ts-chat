@@ -6,6 +6,7 @@
         width="80%"
     >
         <el-form
+            size="small"
             v-show="!hideForm"
             ref="dataFilesFormRef"
             :model="dataFilesForm"

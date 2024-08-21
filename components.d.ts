@@ -21,6 +21,9 @@ declare module 'vue' {
     ChatInput: typeof import('./src/components/chatInput.vue')['default']
     ChatList: typeof import('./src/components/chatList.vue')['default']
     CodeSearch: typeof import('./src/components/codeSearch.vue')['default']
+    ConfiginputDialog: typeof import('./src/components/importData/modelManage/configinputDialog.vue')['default']
+    ConfigInputDialog: typeof import('./src/components/importData/modelManage/configInputDialog.vue')['default']
+    CustomeInOut: typeof import('./src/components/importData/modelManage/customeInOut.vue')['default']
     DataBaseDialog: typeof import('./src/components/importData/dataManage/dataBaseDialog.vue')['default']
     DataFilesDialog: typeof import('./src/components/importData/dataManage/dataFilesDialog.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
@@ -57,8 +60,10 @@ declare module 'vue' {
     TableInfo: typeof import('./src/components/tableInfo.vue')['default']
     UploadBox: typeof import('./src/components/uploadBox.vue')['default']
     UsePinia: typeof import('./src/components/usePinia.vue')['default']
+    VerifyDialog: typeof import('./src/components/importData/modelManage/verifyDialog.vue')['default']
     WebDialog: typeof import('./src/components/importData/dataManage/webDialog.vue')['default']
     WordViewer: typeof import('./src/components/wordViewer.vue')['default']
+    X: typeof import('./src/components/x.vue')['default']
     XlsxViewer: typeof import('./src/components/xlsxViewer.vue')['default']
   }
 }

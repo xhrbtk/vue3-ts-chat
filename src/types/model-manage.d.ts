@@ -29,21 +29,28 @@ export interface pageDataType {
 }
 
 
-// // 导入数据页面 数据库类型
-// export interface DatabaseType{
-//     label: string
-//     value: string
-// }
-
+// 模型管理页面 分析算子表单数据
+export interface InputArrType {
+    name: string;
+    type: string;
+    value?: string;
+}
+export interface OutputArrType {
+    name: string;
+    type: string;
+    value?: string;
+}
 export interface AnalysisFormType{
     address: string
     userName: string
     description: string
+    inputArr: Ref<Array<InputArrType>>
+    outputArr: Ref<Array<OutputArrType>>
 }
 
-// export interface DataFilesFormType{
-//     address: string
-//     port: number
-//     userName: string
-//     passWord: string
-// }
+export type Keys = 'inputArr' | 'outputArr';
+export interface InputAndOutputObjType {
+    label: string;
+    arr: any;
+    type: Keys;
+}
