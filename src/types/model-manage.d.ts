@@ -20,6 +20,11 @@ export interface openLargeModelType{
     content: string
 }
 
+export interface customFunctionDataType {
+    name: string
+    content: string
+}
+
 // 模型管理页面 页面数据
 export interface pageDataType {
     type: string;
@@ -41,11 +46,13 @@ export interface OutputArrType {
     value?: string;
 }
 export interface AnalysisFormType{
-    address: string
-    userName: string
-    description: string
-    inputArr: Ref<Array<InputArrType>>
-    outputArr: Ref<Array<OutputArrType>>
+    address?: string
+    modelName?: string
+    description?: string
+    inputArr?: Ref<Array<InputArrType>>
+    outputArr?: Ref<Array<OutputArrType>>
+    secretKey?: string
+    functionDefine?: string
 }
 
 export type Keys = 'inputArr' | 'outputArr';

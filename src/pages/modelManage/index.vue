@@ -29,9 +29,12 @@
             ></cardContent>
         </el-card>
     </div>
-    <addAnalysisDialog v-model="showAddAnalysisDialog"></addAnalysisDialog>
-    <addLocalDialog v-model="showAddLocalDialog"></addLocalDialog>
-    <addOpenDialog v-model="showAddOpenDialog"></addOpenDialog>
+    <addAnalysisDialog
+        v-model="showAddAnalysisDialog"
+        :modelType="modelType"
+    ></addAnalysisDialog>
+    <!-- <addLocalDialog v-model="showAddLocalDialog"></addLocalDialog> -->
+    <!-- <addOpenDialog v-model="showAddOpenDialog"></addOpenDialog> -->
 </template>
 
 <script lang="ts" setup>
@@ -46,6 +49,7 @@ import {
     localLargeModelType,
     openLargeModelType,
     pageDataType,
+    customFunctionDataType,
 } from '@/types/model-manage.d.ts';
 
 import { useRouter } from 'vue-router';
@@ -119,6 +123,25 @@ const openLargeModelData = ref<openLargeModelType[]>([
     },
 ]);
 
+const customFunctionData = ref<customFunctionDataType[]>([
+    {
+        name: '航班信息表1',
+        content: '各飞行航班信息',
+    },
+    {
+        name: '航班信息表2',
+        content: '各飞行航班信息',
+    },
+    {
+        name: '航班信息表3',
+        content: '各飞行航班信息',
+    },
+    {
+        name: '航班信息表4',
+        content: '各飞行航班信息',
+    },
+]);
+
 const pageData = ref<pageDataType[]>([
     {
         type: 'anysis',
@@ -137,6 +160,12 @@ const pageData = ref<pageDataType[]>([
         title: '开放大模型',
         inputValue: ref(''),
         list: openLargeModelData,
+    },
+    {
+        type: 'customFunction',
+        title: '自定义函数',
+        inputValue: ref(''),
+        list: customFunctionData,
     },
 ]);
 const handleDelete = (index: number, list: any[], type: string) => {
@@ -163,22 +192,14 @@ const handleClick = (item: any, type: string) => {
     }
 };
 
+const modelType = ref<string>('');
+
 // 打开弹框
 const showAddAnalysisDialog = ref<boolean>(false);
-const showAddLocalDialog = ref<boolean>(false);
-const showAddOpenDialog = ref<boolean>(false);
+
 const openModel = (type: string) => {
-    switch (type) {
-        case 'anysis':
-            showAddAnalysisDialog.value = true;
-            break;
-        case 'local':
-            showAddLocalDialog.value = true;
-            break;
-        case 'open':
-            showAddOpenDialog.value = true;
-            break;
-    }
+    modelType.value = type;
+    showAddAnalysisDialog.value = true;
 };
 </script>
 
