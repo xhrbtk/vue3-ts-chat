@@ -25,7 +25,7 @@ export default defineConfig({
         }),
         createSvgIconsPlugin({
             // 指定要缓存的图标文件夹
-            iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+            iconDirs: [path.resolve(process.cwd(), 'src/assets/')],
             // symbolId 格式
             symbolId: 'icon-[name]',
           }),

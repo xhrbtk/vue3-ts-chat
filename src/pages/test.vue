@@ -9,6 +9,7 @@ import { ref, onMounted } from 'vue';
 import LogicFlow from '@logicflow/core';
 import { Menu, DndPanel, SelectionSelect } from '@logicflow/extension';
 import '@logicflow/core/lib/style/index.css';
+import sqlIcon from '@/assets/sql-icon.svg';
 import {
     CustomIconTextNode,
     CustomIconTextNodeModel,
@@ -28,7 +29,7 @@ const data = {
             properties: {
                 iconName: 'icon-biaoge', // 使用 iconfont 的类名，而不是直接使用 Emoji
                 title: '工具节点', // 自定义节点名称
-                text: '你好', // 自定义描述文字
+                description: '你好', // 自定义描述文字
             },
         },
         {
@@ -49,6 +50,7 @@ const data = {
 };
 
 onMounted(() => {
+    console.log('sqlIcon', sqlIcon);
     if (container.value) {
         lf = new LogicFlow({
             container: container.value,
