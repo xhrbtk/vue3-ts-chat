@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4648545 */
-  src: url('iconfont.woff2?t=1724204911188') format('woff2'),
-       url('iconfont.woff?t=1724204911188') format('woff'),
-       url('iconfont.ttf?t=1724204911188') format('truetype');
+  src: url('iconfont.woff2?t=1724399644873') format('woff2'),
+       url('iconfont.woff?t=1724399644873') format('woff'),
+       url('iconfont.ttf?t=1724399644873') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-a-biaogesvg:before {
+  content: "\e7e3";
 }
 
 .icon-fuzhi:before {

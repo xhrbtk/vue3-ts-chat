@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "36525431",
+      "name": "表格@svg",
+      "font_class": "a-biaogesvg",
+      "unicode": "e7e3",
+      "unicode_decimal": 59363
+    },
+    {
       "icon_id": "5993150",
       "name": "复制",
       "font_class": "fuzhi",

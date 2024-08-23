@@ -70,7 +70,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/flow',
         name: 'flow',
-        component: () => import('@/pages/chatFlow.vue'),
+        component: () => import('@/pages/flowManage/index.vue'),
       },
       {
         path: '/chat/task',
