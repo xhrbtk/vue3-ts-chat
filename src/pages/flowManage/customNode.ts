@@ -16,7 +16,8 @@ class CustomIconTextNode extends RectNode {
     const description = properties.description || '节点描述';
 
     // SVG 图标的定义
-    const svgIcon = customIcon.web
+    console.log('property', properties)
+    const svgIcon = customIcon[properties.icon] || customIcon.web
 
 
     return h('g', {}, [

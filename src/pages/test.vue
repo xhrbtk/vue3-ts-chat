@@ -27,16 +27,54 @@ const data = {
             x: 100,
             y: 100,
             properties: {
-                iconName: 'icon-biaoge', // 使用 iconfont 的类名，而不是直接使用 Emoji
+                icon: 'table', // 使用 iconfont 的类名，而不是直接使用 Emoji
                 title: '工具节点', // 自定义节点名称
                 description: '你好', // 自定义描述文字
             },
         },
         {
-            id: 21,
-            type: 'circle',
-            x: 300,
+            id: 51,
+            type: 'custom-icon-node',
+            x: 150,
             y: 150,
+            properties: {
+                icon: 'file', // 使用 iconfont 的类名，而不是直接使用 Emoji
+                title: '工具节点', // 自定义节点名称
+                description: '你好', // 自定义描述文字
+            },
+        },
+        {
+            id: 52,
+            type: 'custom-icon-node',
+            x: 150,
+            y: 150,
+            properties: {
+                icon: 'img', // 使用 iconfont 的类名，而不是直接使用 Emoji
+                title: '工具节点', // 自定义节点名称
+                description: '你好', // 自定义描述文字
+            },
+        },
+        {
+            id: 53,
+            type: 'custom-icon-node',
+            x: 200,
+            y: 250,
+            properties: {
+                icon: 'sql', // 使用 iconfont 的类名，而不是直接使用 Emoji
+                title: '工具节点', // 自定义节点名称
+                description: '你好', // 自定义描述文字
+            },
+        },
+        {
+            id: 54,
+            type: 'custom-icon-node',
+            x: 350,
+            y: 150,
+            properties: {
+                icon: 'web', // 使用 iconfont 的类名，而不是直接使用 Emoji
+                title: '工具节点', // 自定义节点名称
+                description: '你好', // 自定义描述文字
+            },
         },
     ],
     // 边
@@ -44,7 +82,12 @@ const data = {
         {
             type: 'polyline',
             sourceNodeId: 50,
-            targetNodeId: 21,
+            targetNodeId: 51, // 一个有效的目标节点 ID
+        },
+        {
+            type: 'polyline',
+            sourceNodeId: 51,
+            targetNodeId: 52, // 另一条边连接到另一个节点
         },
     ],
 };
