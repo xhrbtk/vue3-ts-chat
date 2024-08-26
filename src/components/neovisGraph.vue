@@ -46,21 +46,31 @@ const config = ref({
     labels: {
         Team: {
             label: 'name',
+            caption: 'name',
             size: 'matchs',
-            shape: 'circle',
         },
         Match: {
-            label: '{stage} - {date}', // 显示比赛阶段和日期
-            shape: 'circle',
+            label: 'stage',
+            caption: 'stage',
         },
     },
     relationships: {
         PLAYED_IN: {
-            // caption: false,
+            caption: false,
             thickness: 'score',
         },
     },
     initialCypher: props.query,
+    visConfig: {
+        nodes: {
+            // shape: 'circle',
+        },
+        edges: {
+            arrows: {
+                to: { enabled: true },
+            },
+        },
+    },
 });
 
 onMounted(() => {
@@ -68,5 +78,29 @@ onMounted(() => {
     console.log('viz', viz);
     console.log('Neovis Config:', config.value);
     viz.render();
+
+    // 获取所有节点和边的数据
+    viz.registerOnEvent('completed', () => {
+        const nodes = viz.network.body.data.nodes.get();
+        const edges = viz.network.body.data.edges.get();
+
+        console.log('Nodes:', nodes);
+        console.log('Edges:', edges);
+    });
+
+    // 获取单个节点或边被点击时的数据
+    viz.registerOnEvent('clickNode', (event) => {
+        const nodeId = event.nodes[0];
+        const nodeData = viz.network.body.data.nodes.get(nodeId);
+
+        console.log('Clicked Node Data:', nodeData);
+    });
+
+    viz.registerOnEvent('clickEdge', (event) => {
+        const edgeId = event.edges[0];
+        const edgeData = viz.network.body.data.edges.get(edgeId);
+
+        console.log('Clicked Edge Data:', edgeData);
+    });
 });
 </script>

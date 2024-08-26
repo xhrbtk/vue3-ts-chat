@@ -6,17 +6,17 @@
             :extensions="extensions"
             :autofocus="true"
             :indent-with-tab="true"
-            :tab-size="4"
+            :tab-size="6"
             class="h-full"
-            style="height: 80%"
+            style="height: 200px"
             @input="handleInput"
         />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { oneDark } from '@codemirror/theme-one-dark';
-import { githubLight } from '@ddietr/codemirror-themes/github-light';
+// import { oneDark } from '@codemirror/theme-one-dark';
+// import { githubLight } from '@ddietr/codemirror-themes/github-light';
 import { Codemirror } from 'vue-codemirror';
 import { sql } from '@codemirror/lang-sql';
 import { solarizedLight } from '@ddietr/codemirror-themes/solarized-light';

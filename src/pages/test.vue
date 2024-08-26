@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <div class="flow-container p-[10px] pl-[20px]">
+        <el-button type="primary" class="mb-[10px]" @click="addNode"
+            >添加节点</el-button
+        >
         <div class="container" ref="container"></div>
     </div>
 </template>
@@ -9,7 +12,6 @@ import { ref, onMounted } from 'vue';
 import LogicFlow from '@logicflow/core';
 import { Menu, DndPanel, SelectionSelect } from '@logicflow/extension';
 import '@logicflow/core/lib/style/index.css';
-import sqlIcon from '@/assets/sql-icon.svg';
 import {
     CustomIconTextNode,
     CustomIconTextNodeModel,
@@ -43,57 +45,40 @@ const data = {
                 description: '你好', // 自定义描述文字
             },
         },
-        {
-            id: 52,
-            type: 'custom-icon-node',
-            x: 150,
-            y: 150,
-            properties: {
-                icon: 'img', // 使用 iconfont 的类名，而不是直接使用 Emoji
-                title: '工具节点', // 自定义节点名称
-                description: '你好', // 自定义描述文字
-            },
-        },
-        {
-            id: 53,
-            type: 'custom-icon-node',
-            x: 200,
-            y: 250,
-            properties: {
-                icon: 'sql', // 使用 iconfont 的类名，而不是直接使用 Emoji
-                title: '工具节点', // 自定义节点名称
-                description: '你好', // 自定义描述文字
-            },
-        },
-        {
-            id: 54,
-            type: 'custom-icon-node',
-            x: 350,
-            y: 150,
-            properties: {
-                icon: 'web', // 使用 iconfont 的类名，而不是直接使用 Emoji
-                title: '工具节点', // 自定义节点名称
-                description: '你好', // 自定义描述文字
-            },
-        },
     ],
     // 边
-    edges: [
-        {
-            type: 'polyline',
-            sourceNodeId: 50,
-            targetNodeId: 51, // 一个有效的目标节点 ID
+    // edges: [
+    //     {
+    //         type: 'polyline',
+    //         sourceNodeId: 50,
+    //         targetNodeId: 51, // 一个有效的目标节点 ID
+    //     },
+    //     {
+    //         type: 'polyline',
+    //         sourceNodeId: 51,
+    //         targetNodeId: 52, // 另一条边连接到另一个节点
+    //     },
+    // ],
+};
+
+const addNode = () => {
+    let id = data.nodes[data.nodes.length - 1].id + 1;
+    let newNode = {
+        id,
+        type: 'custom-icon-node',
+        x: 250,
+        y: 200,
+        properties: {
+            icon: 'tool', // 使用 iconfont 的类名，而不是直接使用 Emoji
+            title: `工具节点${id}`, // 自定义节点名称
+            description: '你好', // 自定义描述文字
         },
-        {
-            type: 'polyline',
-            sourceNodeId: 51,
-            targetNodeId: 52, // 另一条边连接到另一个节点
-        },
-    ],
+    };
+    lf.addNode(newNode);
+    data.nodes.push(newNode);
 };
 
 onMounted(() => {
-    console.log('sqlIcon', sqlIcon);
     if (container.value) {
         lf = new LogicFlow({
             container: container.value,
@@ -113,46 +98,45 @@ onMounted(() => {
             view: CustomIconTextNode,
             model: CustomIconTextNodeModel,
         });
-
-        lf.extension.menu.addMenuConfig({
+        lf.extension.menu.setMenuConfig({
             nodeMenu: [
                 {
-                    text: '分享',
-                    callback() {
-                        alert('分享成功！');
+                    text: '删除',
+                    callback(node) {
+                        lf.deleteNode(node.id);
                     },
                 },
                 {
-                    text: '属性',
-                    callback(node: any) {
-                        alert(`
-          节点id：${node.id}
-          节点类型：${node.type}
-          节点坐标：(x: ${node.x}, y: ${node.y})`);
+                    text: 'transform',
+                    callback(node) {
+                        lf.deleteNode(node.id);
                     },
                 },
-            ],
-            edgeMenu: [
                 {
-                    text: '属性',
-                    callback(edge: any) {
-                        alert(`
-          边id：${edge.id}
-          边类型：${edge.type}
-          边坐标：(x: ${edge.x}, y: ${edge.y})
-          源节点id：${edge.sourceNodeId}
-          目标节点id：${edge.targetNodeId}`);
+                    text: 'Join',
+                    callback(node) {
+                        lf.deleteNode(node.id);
                     },
                 },
-            ],
-            graphMenu: [
                 {
-                    text: '分享',
-                    callback() {
-                        alert('分享成功！');
+                    text: 'Union',
+                    callback(node) {
+                        lf.deleteNode(node.id);
                     },
                 },
-            ],
+            ], // 覆盖默认的节点右键菜单
+            edgeMenu: false, // 删除默认的边右键菜单
+            graphMenu: [], // 覆盖默认的边右键菜单，与false表现一样
+        });
+
+        lf.on('node:add', (data) => {
+            console.log('node:add', data);
+        });
+        lf.on('node:delete', (data) => {
+            console.log('node:delete', data);
+        });
+        lf.on('node:click', (data) => {
+            console.log('node:click', data);
         });
         lf.render(data);
     }

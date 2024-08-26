@@ -83,10 +83,10 @@ import neovisGraph from '@/components/neovisGraph.vue';
 import tableInfo from '@/components/tableInfo.vue';
 import { ref, defineComponent, Ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { oneDark } from '@codemirror/theme-one-dark';
+// import { oneDark } from '@codemirror/theme-one-dark';
 import { Codemirror } from 'vue-codemirror';
 import { sql } from '@codemirror/lang-sql';
-
+import { solarizedLight } from '@ddietr/codemirror-themes/solarized-light';
 const route = useRoute();
 
 defineComponent({
@@ -95,7 +95,7 @@ defineComponent({
     neovisGraph,
 });
 const query = ref<string>(`
-   MATCH (t:Team)-[r:PLAYED_IN]->(m:Match) RETURN t, r, m
+   MATCH p=()-[r:PLAYED_IN]->() RETURN p LIMIT 200
 `);
 const name: Ref<string | undefined> = ref(
     route.query.name as string | undefined,
@@ -144,6 +144,6 @@ const tableInfoList = ref<TableInfoType[]>([
     },
 ]);
 const activeName = ref<string>('1');
-const extensions = [sql(), oneDark];
+const extensions = [sql(), solarizedLight];
 const code = ref<string>('');
 </script>

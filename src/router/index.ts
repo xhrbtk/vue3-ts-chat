@@ -28,6 +28,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/pages/test.vue'),
       },
       {
+        path: '/test2',
+        name: 'test2',
+        component: () => import('@/pages/test2.vue'),
+      },
+      {
         path: '/chat',
         name: 'chat',
         component: () => import('@/pages/chatPage.vue'),
