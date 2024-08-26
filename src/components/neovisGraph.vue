@@ -47,14 +47,16 @@ const config = ref({
         Team: {
             label: 'name',
             size: 'matchs',
+            shape: 'circle',
         },
         Match: {
-            label: 'stage',
+            label: '{stage} - {date}', // 显示比赛阶段和日期
+            shape: 'circle',
         },
     },
     relationships: {
         PLAYED_IN: {
-            caption: false,
+            // caption: false,
             thickness: 'score',
         },
     },
@@ -64,7 +66,7 @@ const config = ref({
 onMounted(() => {
     const viz = new NeoVis(config.value);
     console.log('viz', viz);
-
+    console.log('Neovis Config:', config.value);
     viz.render();
 });
 </script>

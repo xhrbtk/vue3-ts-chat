@@ -37,9 +37,9 @@
                         class="border-dashed border-[1px] border-[#e4e4e4]"
                         containerId="viz1"
                         ref="vizRef"
-                        neo4j-uri="bolt://44.223.97.198:7687"
+                        neo4j-uri="bolt://54.159.153.212:7687"
                         neo4j-user="neo4j"
-                        neo4j-password="catalogs-laundry-goggles"
+                        neo4j-password="customers-margins-partitions"
                         :query="query"
                     />
                 </div>
@@ -65,9 +65,9 @@
                     class="w-full h-full mt-[10px] border-dashed border-[1px] border-[#e4e4e4]"
                 >
                     <NeovisGraph
-                        neo4j-uri="bolt://44.223.97.198:7687"
+                        neo4j-uri="bolt://54.159.153.212:7687"
                         neo4j-user="neo4j"
-                        neo4j-password="catalogs-laundry-goggles"
+                        neo4j-password="customers-margins-partitions"
                         :query="query"
                         containerId="viz2"
                     />
@@ -94,7 +94,9 @@ defineComponent({
     tableInfo,
     neovisGraph,
 });
-const query = ref<string>('MATCH p=()-[r:PLAYED_IN]->() RETURN p LIMIT 200');
+const query = ref<string>(`
+   MATCH (t:Team)-[r:PLAYED_IN]->(m:Match) RETURN t, r, m
+`);
 const name: Ref<string | undefined> = ref(
     route.query.name as string | undefined,
 );
