@@ -9,6 +9,13 @@
             <el-button type="primary" size="small" @click="exportAsPng">
                 导出为图片
             </el-button>
+            <el-button
+                type="primary"
+                size="small"
+                @click="showFlowCrontab = true"
+            >
+                流程执行
+            </el-button>
         </div>
         <div
             class="flow-container overflow-auto border-[0.5px] border-gray-300 h-[90%] flex"
@@ -39,11 +46,16 @@
             </div>
         </div>
     </div>
+    <flow-crontab v-model="showFlowCrontab" />
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineComponent } from 'vue';
 import LogicFlow from '@logicflow/core';
+import flowCrontab from '@/pages/flowManage/flowCrontab.vue';
+defineComponent({
+    flowCrontab,
+});
 import {
     Menu,
     DndPanel,
@@ -55,6 +67,8 @@ import {
     CustomIconTextNode,
     CustomIconTextNodeModel,
 } from '@/pages/flowManage/customNode.ts';
+
+const showFlowCrontab = ref(false);
 
 const container = ref<HTMLElement | null>(null);
 let lf: LogicFlow;

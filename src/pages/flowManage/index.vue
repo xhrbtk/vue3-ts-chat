@@ -143,8 +143,7 @@ const handleDelete = (index: number, list: any[], type: string) => {
     flowManageList.value.splice(index, 1);
 };
 const handleClick = (item: any, type: string) => {
-    console.log('here---', item.name);
-    goingTo(`/flowManage/flowDetail`, { name: item.name });
+    goingTo(`/flow/flowConstruction`, { type });
 };
 </script>
 
