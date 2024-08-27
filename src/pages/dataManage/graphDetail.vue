@@ -33,7 +33,7 @@
                             ></tableInfo>
                         </el-tab-pane>
                     </el-tabs>
-                    <NeovisGraph
+                    <!-- <NeovisGraph
                         class="border-dashed border-[1px] border-[#e4e4e4]"
                         containerId="viz1"
                         ref="vizRef"
@@ -41,7 +41,8 @@
                         neo4j-user="neo4j"
                         neo4j-password="customers-margins-partitions"
                         :query="query"
-                    />
+                    /> -->
+                    <graphChart containerId="viz1"></graphChart>
                 </div>
             </div>
             <el-divider border-style="dashed" />
@@ -64,13 +65,14 @@
                 <div
                     class="w-full h-full mt-[10px] border-dashed border-[1px] border-[#e4e4e4]"
                 >
-                    <NeovisGraph
+                    <graphChart containerId="viz2"></graphChart>
+                    <!-- <NeovisGraph
                         neo4j-uri="bolt://54.159.153.212:7687"
                         neo4j-user="neo4j"
                         neo4j-password="customers-margins-partitions"
                         :query="query"
                         containerId="viz2"
-                    />
+                    /> -->
                 </div>
             </div>
         </div>
@@ -78,8 +80,8 @@
 </template>
 
 <script lang="ts" setup>
-import neovisGraph from '@/components/neovisGraph.vue';
-
+// import neovisGraph from '@/components/neovisGraph.vue';
+import graphChart from '@/components/graphChart.vue';
 import tableInfo from '@/components/tableInfo.vue';
 import { ref, defineComponent, Ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -92,7 +94,8 @@ const route = useRoute();
 defineComponent({
     Codemirror,
     tableInfo,
-    neovisGraph,
+    // neovisGraph,
+    graphChart,
 });
 const query = ref<string>(`
    MATCH p=()-[r:PLAYED_IN]->() RETURN p LIMIT 200

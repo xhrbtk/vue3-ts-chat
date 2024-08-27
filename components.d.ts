@@ -58,6 +58,7 @@ declare module 'vue' {
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    GraphChart: typeof import('./src/components/graphChart.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Info: typeof import('./src/components/info.vue')['default']
     LeftAside: typeof import('./src/components/leftAside.vue')['default']
