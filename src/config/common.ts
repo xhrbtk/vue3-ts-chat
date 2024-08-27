@@ -14,7 +14,7 @@ export const menuArr= [
         path: '/model',
     },
     {
-        name: '流程构建',
+        name: '流程管理',
         icon: 'icon-liucheng',
         content: '实时资讯，丰富信源，整合搜索',
         path: '/flow',

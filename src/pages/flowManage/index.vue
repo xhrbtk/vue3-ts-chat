@@ -7,11 +7,11 @@
             <div class="card-header">
                 <div class="flex justify-between mb-[10px]">
                     <span>流程列表</span>
-                    <el-button type="primary" @click="jumpto('table')"
-                        >添加</el-button
-                    >
+                    <el-button type="primary" @click="jumpto">添加</el-button>
                 </div>
-                <searchInput></searchInput>
+                <searchInput
+                    placeholder="请输入关键词进行流程检索"
+                ></searchInput>
             </div>
             <cardContent
                 :type="'table'"
@@ -53,20 +53,8 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const goingTo = (path: string, query?: any) => router.push({ path, query });
 
-const jumpto = (type: string) => {
-    switch (type) {
-        case 'table':
-            goingTo('/dataManage/importData', { type: 'table' });
-            break;
-        case 'graph':
-            goingTo('/dataManage/importData', { type: 'graph' });
-            break;
-        case 'document':
-            goingTo('/dataManage/importData', { type: 'document' });
-            break;
-        default:
-            break;
-    }
+const jumpto = (type?: string) => {
+    goingTo('/flow/flowConstruction');
 };
 
 defineComponent({

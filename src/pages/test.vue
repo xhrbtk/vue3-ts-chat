@@ -1,16 +1,26 @@
 <template>
     <div class="flow-container p-[10px] pl-[20px]">
-        <el-button type="primary" class="mb-[10px]" @click="addNode"
-            >添加节点</el-button
-        >
-        <div class="container" ref="container"></div>
+        <div class="flex mb-[10px]">
+            <el-button type="primary" @click="addNode">添加节点</el-button>
+            <el-button type="primary" @click="exportAsPng">
+                导出为图片
+            </el-button>
+        </div>
+        <div class="flow-container overflow-auto border border-gray-300">
+            <div class="container" ref="container"></div>
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import LogicFlow from '@logicflow/core';
-import { Menu, DndPanel, SelectionSelect } from '@logicflow/extension';
+import {
+    Menu,
+    DndPanel,
+    SelectionSelect,
+    Snapshot,
+} from '@logicflow/extension';
 import '@logicflow/core/lib/style/index.css';
 import {
     CustomIconTextNode,
@@ -34,17 +44,6 @@ const data = {
                 description: '你好', // 自定义描述文字
             },
         },
-        {
-            id: 51,
-            type: 'custom-icon-node',
-            x: 150,
-            y: 150,
-            properties: {
-                icon: 'file', // 使用 iconfont 的类名，而不是直接使用 Emoji
-                title: '工具节点', // 自定义节点名称
-                description: '你好', // 自定义描述文字
-            },
-        },
     ],
     // 边
     // edges: [
@@ -61,21 +60,43 @@ const data = {
     // ],
 };
 
-const addNode = () => {
+// 导出图片
+const exportAsPng = () => {
+    lf.getSnapshot();
+};
+
+const addNode = (node?: CustomIconTextNodeModel) => {
     let id = data.nodes[data.nodes.length - 1].id + 1;
-    let newNode = {
-        id,
-        type: 'custom-icon-node',
-        x: 250,
-        y: 200,
-        properties: {
-            icon: 'tool', // 使用 iconfont 的类名，而不是直接使用 Emoji
-            title: `工具节点${id}`, // 自定义节点名称
-            description: '你好', // 自定义描述文字
-        },
-    };
+    let newNode = null;
+    if (!node) {
+        newNode = {
+            id,
+            type: 'custom-icon-node',
+            x: data.nodes[data.nodes.length - 1].x + 300,
+            y: data.nodes[data.nodes.length - 1].y,
+            properties: {
+                icon: 'tool', // 使用 iconfont 的类名，而不是直接使用 Emoji
+                title: `工具节点${id}`, // 自定义节点名称
+                description: '你好', // 自定义描述文字
+            },
+        };
+    } else {
+        newNode = {
+            id,
+            type: 'custom-icon-node',
+            x: node.x + 300,
+            y: node.y,
+            properties: {
+                icon: 'tool', // 使用 iconfont 的类名，而不是直接使用 Emoji
+                title: `工具节点${id}`, // 自定义节点名称
+                description: '你好', // 自定义描述文字
+            },
+        };
+    }
+
     lf.addNode(newNode);
     data.nodes.push(newNode);
+    return newNode;
 };
 
 onMounted(() => {
@@ -84,13 +105,11 @@ onMounted(() => {
             container: container.value,
             stopScrollGraph: true,
             stopZoomGraph: true,
-            width: 1000,
-            height: 500,
-            grid: {
-                type: 'dot',
-                size: 20,
-            },
-            plugins: [Menu],
+            grid: true,
+            width: 2000, // 画布宽度
+            height: 2000, // 画布高度
+            plugins: [Menu, Snapshot],
+            edgeTextEdit: false,
         });
         // 注册自定义节点
         lf.register({
@@ -109,7 +128,13 @@ onMounted(() => {
                 {
                     text: 'transform',
                     callback(node) {
-                        lf.deleteNode(node.id);
+                        let newNode = addNode(node);
+                        lf.addEdge({
+                            type: 'polyline',
+                            sourceNodeId: node.id,
+                            targetNodeId: newNode.id,
+                        });
+                        console.log('node', node);
                     },
                 },
                 {

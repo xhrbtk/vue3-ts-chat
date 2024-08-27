@@ -78,6 +78,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/pages/flowManage/index.vue'),
       },
       {
+        path: '/flow/flowConstruction',
+        name: 'flowConstruction',
+        component: () => import('@/pages/flowManage/flowConstruction.vue'),
+      },
+      {
         path: '/chat/task',
         name: 'task',
         component: () => import('@/pages/chatTask.vue'),
